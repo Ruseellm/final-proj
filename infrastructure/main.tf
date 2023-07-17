@@ -105,32 +105,43 @@ resource "helm_release" "grafana" {
   namespace = "monitoring"
   repository = "https://grafana.github.io/helm-charts"
   chart = "grafana"
+    set {
+    name  = "service.type"
+    value = "LoadBalancer"
+  }
+
+  set {
+    name  = "protocolHttp"
+    value = "true"
+  }
+
+  set {
+    name  = "service.externalPort"
+    value = 8080
+  }
 }
+
 resource "helm_release" "jenkins" {
   name = "jenkins"
   namespace = "cicd"
   repository = "https://charts.jenkins.io"
   chart = "jenkins"
   set {
-    name  = "metrics.enabled"
-    value = "true"
-  }
-  set {
-    name  = "cluster.enabled"
-    value = "true"
-  }
-  set_sensitive {
-    name  = "controller.adminUser"
-    value = "admin"
+    name  = "service.type"
+    value = "LoadBalancer"
   }
 
-  set_sensitive {
-    name  = "controller.adminPassword"
-    value = "Jenkinsadmin"
+  set {
+    name  = "protocolHttp"
+    value = "true"
+  }
+
+  set {
+    name  = "service.externalPort"
+    value = 80
   }
 
 }
-
 
 output "client_certificate" {
   value = azurerm_kubernetes_cluster.k8s.kube_config.0.client_certificate
