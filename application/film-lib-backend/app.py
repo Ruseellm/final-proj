@@ -1,23 +1,15 @@
 # Flask web application
 from flask import Flask, render_template, jsonify, request
-import mysql.connector
+import psycopg2
 import uuid
 
-userDb = mysql.connector.connect(
-  host="localhost",
-  user="admin",
-  password="admin",
-  database="users"
-)
-
-ticketDb = mysql.connector.connect(
-  host="localhost",
-  user="admin",
-  password="admin",
-  database="tickets"
-)
-
 app = Flask(__name__)
+
+db_host = 'weightTracker-database-vm'
+db_port = '5432'
+db_name = 'weightdb'
+db_user = 'postgres'
+db_password = 'admin'
 
 class User:
     def __init__(self, name, email, password):
@@ -47,23 +39,77 @@ class User:
 
 
 def createUser(name, email, password):
-    newuser = User(name, email, password)
-    cursor = userDb.cursor()
-    insert_query = "INSERT INTO users (name, email, password, num_tickets) VALUES (%s, %s, %s, %s)"
-    user_data = (newuser.getname(), newuser.get_email(), newuser.get_password(), newuser.get_num_tickets())
-    cursor.execute(insert_query, user_data)
-    userDb.commit()  # For PostgreSQL, you need to commit the changes after executing the query.
-    cursor.close()
+    try:
+        newuser = User(name, email, password)
+        connection = psycopg2.connect(
+            host=db_host,
+            database=db_name,
+            user=db_user,
+            password=db_password
+        )
+
+        cursor = connection.cursor()
+        insert_query = "INSERT INTO users (name, email, password, num_tickets) VALUES (%s, %s, %s, %s)"
+        user_data = (newuser.getname(), newuser.get_email(), newuser.get_password())
+        cursor.execute(insert_query, user_data)
+        connection.commit()
+        cursor.close()
+        connection.close()
+        print("Entry inserted successfully!")
+        response = {
+            'status': 'success',
+            'name': name,
+            'email':newuser.getemail(),
+            'database_status': 'Data inserted successfully'
+        }
+        return jsonify(response)
+    except (Exception, psycopg2.Error) as error:
+        response = {
+            'status': 'error',
+            'message': 'Database error',
+            'error_details': str(error)
+        }
+        return jsonify(response), 500
 
 def getUser(email):
-    cursor = userDb.cursor()
-    select_query = "SELECT * FROM users WHERE email = %s"
-    params = (email,)  # Add a comma to make it a tuple.
-    cursor.execute(select_query, params)
-    user_info = cursor.fetchone()
-    user = User(user_info[0], user_info[1], user_info[2], user_info[3], user_info[4])
-    cursor.close()
-    return user
+    try:
+        # Establish a connection to the PostgreSQL database
+        connection = psycopg2.connect(
+            host=db_host,
+            database=db_name,
+            user=db_user,
+            password=db_password
+        )
+        cursor = connection.cursor()
+        select_query = "SELECT * FROM users WHERE email = %s"
+        cursor.execute(select_query, (name,))
+        result = cursor.fetchone()
+
+        if result:
+            # Retrieve the relevant information from the database
+            name = result[0]
+            email = result[1]
+
+            response = {
+                'status': 'success',
+                'name': name,
+                'email': email
+            }
+        else:
+            response = {
+                'status': 'error',
+                'message': 'name not found in the database'
+            }
+
+        return jsonify(response)
+    except (Exception, psycopg2.Error) as error:
+        print("Error while getting data:", error)
+        response = {
+                'status': 'error',
+                'message': 'error connecting to db'
+            }
+        return jsonify(response)
+
 
 
 
@@ -79,11 +125,6 @@ def test():
         'massage' : 'PONG'
     }
     return jsonify(response)
-
-@app.route('/tickets/<name>', methods=["GET"])
-#get ticket per user
-def getTickets():
-    pass
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8080, debug=True)
