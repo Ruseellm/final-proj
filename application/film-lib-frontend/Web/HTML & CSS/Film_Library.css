@@ -8,10 +8,9 @@
 }
 
 .title {
-    color: white;
     display: inline-block;
-    position: absolute;top: 0;
-    /* border: solid red; */
+    position: absolute;
+    top: 0;
 }
 
 
@@ -91,6 +90,7 @@ img:nth-of-type(4) {
     background-color: #ffffff;
     margin: 6px 0;
     transition: 0.4s;
+    border-radius: 25px;
 }
   
 .change .bar1 {
@@ -129,6 +129,7 @@ img:nth-of-type(4) {
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(245, 245, 245, 0.2);
     z-index: 1;
+    border-radius: 25px;
 }
 
 .dropdown a {
@@ -137,6 +138,7 @@ img:nth-of-type(4) {
     padding: 12px 16px;
     text-decoration: none;
     display: block;
+    border-radius: 25px;
 }
 
 .change .dropdown {display: block;}
