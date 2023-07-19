@@ -16,8 +16,7 @@
                     <div class="bar2"></div>
                     <div class="bar3"></div>
                     <div class="dropdown">
-                        <a>Login</a>
-                        <a>Register</a>
+                        <a onclick="openForm()">Login</a>
                         <a>Film List</a>
                         <a>Actors List</a>
                     </div>
@@ -30,6 +29,32 @@
                 </script>
 
                 <img class="title" src="../Icons/logo-nobg.png">
+                <div class="form-popup" id="myForm">
+                    <form action="/login" class="form-container" method="POST">
+                        <h1>Login</h1>
+                
+                        <label for="email"><b>Email</b></label>
+                        <input type="text" placeholder="Enter Email" name="loginEmail" required>
+                
+                        <label for="psw"><b>Password</b></label>
+                        <input type="password" placeholder="Enter Password" name="loginPass" required>
+                
+                
+                        <button type="submit" class="btn">Login</button>
+                        <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+                    </form>
+                </div>
+                  
+                  
+                  <script>
+                  function openForm() {
+                    document.getElementById("myForm").style.display = "block";
+                  }
+            
+                  function closeForm() {
+                    document.getElementById("myForm").style.display = "none";
+                  }
+                </script>
             </div>
             <img class="slideimg" src="../Background Images/Deadpool.jpg">
             <img class="slideimg" src="../Background Images/spideman.jpg">
