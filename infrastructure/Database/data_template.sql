@@ -1,36 +1,36 @@
 ``` Inserting ```
 
-INSERT INTO `film_library`.`films` (`F_Name`, `F_Producer`, `F_Director`, `F_Prizes`, `F_Year`, `F_Rating`, `F_Type`) VALUES ('Citizen Kane', 'Orson Welles', 'Orson Welles', '6', '', '69', 'Drama');
-INSERT INTO `film_library`.`films` (`F_Name`, `F_Producer`, `F_Director`, `F_Prizes`, `F_Year`, `F_Rating`, `F_Type`) VALUES ('The Godfather', 'Albert Stotland Ruddy', 'Francis Ford Coppola', '2', '', '60', 'Crime');
-INSERT INTO `film_library`.`films` (`F_Name`, `F_Producer`, `F_Director`, `F_Prizes`, `F_Year`, `F_Rating`, `F_Type`) VALUES ('Schindlers List', 'Steven Spielberg', 'Steven Spielberg', '1', '', '53', 'Drama');
-INSERT INTO `film_library`.`films` (`F_Name`, `F_Producer`, `F_Director`, `F_Prizes`, `F_Year`, `F_Rating`, `F_Type`) VALUES ('Star Wars', 'Gary Kurtz', 'George Lucas', '10', '', '76', 'Science Fiction');
-INSERT INTO `film_library`.`films` (`F_Name`, `F_Producer`, `F_Director`, `F_Prizes`, `F_Year`, `F_Rating`, `F_Type`) VALUES ('The Avengers', 'Kevin Feige', 'Joss Whedon', '65', '', '91', 'Superhero');
-INSERT INTO `film_library`.`films` (`F_Name`, `F_Producer`, `F_Director`, `F_Prizes`, `F_Year`, `F_Rating`, `F_Type`) VALUES ('American Pie', 'Warren Zide', 'Paul Weitz', '12', '', '94', 'Comedy');
-INSERT INTO `film_library`.`films` (`F_Name`, `F_Producer`, `F_Director`, `F_Prizes`, `F_Year`, `F_Rating`, `F_Type`) VALUES ('Forest Gump', 'Wendy Finerman', 'Robert Zemeckis', '0', '', '61', 'Comedy Drama');
-INSERT INTO `film_library`.`films` (`F_Name`, `F_Producer`, `F_Director`, `F_Prizes`, `F_Year`, `F_Rating`, `F_Type`) VALUES ('Bonnie And Clyde', 'Warren Beatty', 'Arthur Penn', '2', '', '72', 'Crime');
-INSERT INTO `film_library`.`films` (`F_Name`, `F_Producer`, `F_Director`, `F_Prizes`, `F_Year`, `F_Rating`, `F_Type`) VALUES ('Rocky', 'Irwin Winkler', 'John G. Avildsen', '5', '', '80', 'Drama');
-INSERT INTO `film_library`.`films` (`F_Name`, `F_Producer`, `F_Director`, `F_Prizes`, `F_Year`, `F_Rating`, `F_Type`) VALUES ('Spider Man', 'Avi Arad', 'Sam Raimi', '6', '', '92', 'Superhero');
-INSERT INTO `film_library`.`films` (`F_Name`, `F_Producer`, `F_Director`, `F_Prizes`, `F_Year`, `F_Rating`, `F_Type`) VALUES ('Venom', 'Avi Arad', 'Ruben Fleischer', '6', '', '100', 'Superhero');
-INSERT INTO `film_library`.`films` (`F_Name`, `F_Producer`, `F_Director`, `F_Prizes`, `F_Year`, `F_Rating`, `F_Type`) VALUES ('Deadpool', 'Ryan Reynolds', 'Tim Miller', '7', '', '100', 'Superhero');
-INSERT INTO `film_library`.`films` (`F_Name`, `F_Producer`, `F_Director`, `F_Prizes`, `F_Year`, `F_Rating`, `F_Type`) VALUES ('Dont Mess With The Zohan', 'Adam Sandler', 'Dennis Dugan', '12', '', '84', 'Action Comedy');
-INSERT INTO `film_library`.`films` (`F_Name`, `F_Producer`, `F_Director`, `F_Prizes`, `F_Year`, `F_Rating`, `F_Type`) VALUES ('Jaws', 'Richard D. Zanuck', 'Steven Spielberg', '0', '', '40', 'Thriller');
-INSERT INTO `film_library`.`films` (`F_Name`, `F_Producer`, `F_Director`, `F_Prizes`, `F_Year`, `F_Rating`, `F_Type`) VALUES ('Fast & Furious', 'Neal H. Moritz', 'Rob Cohen', '1', '', '65', 'Action');
-INSERT INTO `film_library`.`films` (`F_Name`, `F_Producer`, `F_Director`, `F_Prizes`, `F_Year`, `F_Rating`, `F_Type`) VALUES ('Eternals', 'Kevin Feige', 'Chloé Zhao', '0', '', '5', 'Superhero');
-INSERT INTO `film_library`.`films` (`F_Name`, `F_Producer`, `F_Director`, `F_Prizes`, `F_Year`, `F_Rating`, `F_Type`) VALUES ('Black Widow', 'Kevin Feige', 'Cate Shortland', '4', '', '91', 'Superhero');
-INSERT INTO `film_library`.`films` (`F_Name`, `F_Producer`, `F_Director`, `F_Prizes`, `F_Year`, `F_Rating`, `F_Type`) VALUES ('Doctor Strange', 'Kevin Feige', 'Scott Derrickson', '5', '', '85', 'Superhero');
-INSERT INTO `film_library`.`films` (`F_Name`, `F_Producer`, `F_Director`, `F_Prizes`, `F_Year`, `F_Rating`, `F_Type`) VALUES ('Dune', 'Mary Parent', 'Denis Villeneuve', '1', '', '50', 'Science Fiction');
-INSERT INTO `film_library`.`films` (`F_Name`, `F_Producer`, `F_Director`, `F_Prizes`, `F_Year`, `F_Rating`, `F_Type`) VALUES ('Murder Mystery', 'Adam Sandler', 'Kyle Newacheck', '5', '', '89', 'Comedy Mystery');
-INSERT INTO `film_library`.`films` (`F_Name`, `F_Producer`, `F_Director`, `F_Prizes`, `F_Year`, `F_Rating`, `F_Type`) VALUES ('Red Notice', 'Beau Flynn', 'Rawson Marshall Thurber', '7', '', '81', 'Action Comedy');
-INSERT INTO `film_library`.`films` (`F_Name`, `F_Producer`, `F_Director`, `F_Prizes`, `F_Year`, `F_Rating`, `F_Type`) VALUES ('Free Guy', 'Ryan Reynolds', 'Shawn Levy', '7', '', '65', 'Science Fiction Comedy');
-INSERT INTO `film_library`.`films` (`F_Name`, `F_Producer`, `F_Director`, `F_Prizes`, `F_Year`, `F_Rating`, `F_Type`) VALUES ('The Proposal', 'David Hoberman', 'Anne Fletcher', '4', '', '67', 'Romantic Comedy');
-INSERT INTO `film_library`.`films` (`F_Name`, `F_Producer`, `F_Director`, `F_Prizes`, `F_Year`, `F_Rating`, `F_Type`) VALUES ('Green Lantern', 'Donald De Line', 'Martin Campbell', '5', '', '70', 'Superhero');
-INSERT INTO `film_library`.`films` (`F_Name`, `F_Producer`, `F_Director`, `F_Prizes`, `F_Year`, `F_Rating`, `F_Type`) VALUES ('The Adam Project', 'David Ellison', 'Shawn Levy', '1', '', '74', 'Science Fiction Action Comedy');
-INSERT INTO `film_library`.`films` (`F_Name`, `F_Producer`, `F_Director`, `F_Prizes`, `F_Year`, `F_Rating`, `F_Type`) VALUES ('6 Underground', 'Ian Bryce', 'Michael Bay', '1', '', '70', 'Vigilante Action Thriller');
-INSERT INTO `film_library`.`films` (`F_Name`, `F_Producer`, `F_Director`, `F_Prizes`, `F_Year`, `F_Rating`, `F_Type`) VALUES ('The Hitmans Bodyguard', 'Ryan Reynolds', 'Patrick Hughes', '55', '', '100', 'Action Comedy');
-INSERT INTO `film_library`.`films` (`F_Name`, `F_Producer`, `F_Director`, `F_Prizes`, `F_Year`, `F_Rating`, `F_Type`) VALUES ('Bullet Train', 'Kelly McCormick', 'David Leitch', '7', '', '80', 'Action Comedy');
-INSERT INTO `film_library`.`films` (`F_Name`, `F_Producer`, `F_Director`, `F_Prizes`, `F_Year`, `F_Rating`, `F_Type`) VALUES ('Just Friends', 'Chris Bender', 'Roger Kumble', '1', '', '77', 'Romantic Comedy');
-INSERT INTO `film_library`.`films` (`F_Name`, `F_Producer`, `F_Director`, `F_Prizes`, `F_Year`, `F_Rating`, `F_Type`) VALUES ('The Change UP', 'David Dobkin', 'David Dobkin', '3', '', '90', 'Romantic Comedy');
-INSERT INTO `film_library`.`films` (`F_Name`, `F_Producer`, `F_Director`, `F_Prizes`, `F_Year`, `F_Rating`, `F_Type`) VALUES ('R.I.P.D.', 'Neal H. Moritz', 'Robert Schwentke', '5', '', '85', 'Science Fiction Action Comedy');
+INSERT INTO `film_library`.`films` (`F_Name`, `F_Producer`, `F_Director`, `F_Prizes`, `F_Year`, `F_Rating`, `F_Count_Rating`, `F_Type`) VALUES ('Citizen Kane', 'Orson Welles', 'Orson Welles', '6', '1941', '0', '0', 'Drama');
+INSERT INTO `film_library`.`films` (`F_Name`, `F_Producer`, `F_Director`, `F_Prizes`, `F_Year`, `F_Rating`, `F_Count_Rating`, `F_Type`) VALUES ('The Godfather', 'Albert Stotland Ruddy', 'Francis Ford Coppola', '2', '1972', '0', '0', 'Crime');
+INSERT INTO `film_library`.`films` (`F_Name`, `F_Producer`, `F_Director`, `F_Prizes`, `F_Year`, `F_Rating`, `F_Count_Rating`, `F_Type`) VALUES ('Schindlers List', 'Steven Spielberg', 'Steven Spielberg', '1', '1993', '0', '0', 'Drama');
+INSERT INTO `film_library`.`films` (`F_Name`, `F_Producer`, `F_Director`, `F_Prizes`, `F_Year`, `F_Rating`, `F_Count_Rating`, `F_Type`) VALUES ('Star Wars', 'Gary Kurtz', 'George Lucas', '10', '1977', '0', '0', 'Science Fiction');
+INSERT INTO `film_library`.`films` (`F_Name`, `F_Producer`, `F_Director`, `F_Prizes`, `F_Year`, `F_Rating`, `F_Count_Rating`, `F_Type`) VALUES ('The Avengers', 'Kevin Feige', 'Joss Whedon', '65', '2012', '0', '0', 'Superhero');
+INSERT INTO `film_library`.`films` (`F_Name`, `F_Producer`, `F_Director`, `F_Prizes`, `F_Year`, `F_Rating`, `F_Count_Rating`, `F_Type`) VALUES ('American Pie', 'Warren Zide', 'Paul Weitz', '12', '1999', '0', '0', 'Comedy');
+INSERT INTO `film_library`.`films` (`F_Name`, `F_Producer`, `F_Director`, `F_Prizes`, `F_Year`, `F_Rating`, `F_Count_Rating`, `F_Type`) VALUES ('Forest Gump', 'Wendy Finerman', 'Robert Zemeckis', '0', '1994', '0', '0', 'Comedy Drama');
+INSERT INTO `film_library`.`films` (`F_Name`, `F_Producer`, `F_Director`, `F_Prizes`, `F_Year`, `F_Rating`, `F_Count_Rating`, `F_Type`) VALUES ('Bonnie And Clyde', 'Warren Beatty', 'Arthur Penn', '2', '1967', '0', '0', 'Crime');
+INSERT INTO `film_library`.`films` (`F_Name`, `F_Producer`, `F_Director`, `F_Prizes`, `F_Year`, `F_Rating`, `F_Count_Rating`, `F_Type`) VALUES ('Rocky', 'Irwin Winkler', 'John G. Avildsen', '5', '1976', '0', '0', 'Drama');
+INSERT INTO `film_library`.`films` (`F_Name`, `F_Producer`, `F_Director`, `F_Prizes`, `F_Year`, `F_Rating`, `F_Count_Rating`, `F_Type`) VALUES ('Spider Man', 'Laura Ziskin', 'Sam Raimi', '6', '2002', '0', '0', 'Superhero');
+INSERT INTO `film_library`.`films` (`F_Name`, `F_Producer`, `F_Director`, `F_Prizes`, `F_Year`, `F_Rating`, `F_Count_Rating`, `F_Type`) VALUES ('Venom', 'Avi Arad', 'Ruben Fleischer', '6', '2018', '0', '0', 'Superhero');
+INSERT INTO `film_library`.`films` (`F_Name`, `F_Producer`, `F_Director`, `F_Prizes`, `F_Year`, `F_Rating`, `F_Count_Rating`, `F_Type`) VALUES ('Deadpool', 'Ryan Reynolds', 'Tim Miller', '7', '2016', '0', '0', 'Superhero');
+INSERT INTO `film_library`.`films` (`F_Name`, `F_Producer`, `F_Director`, `F_Prizes`, `F_Year`, `F_Rating`, `F_Count_Rating`, `F_Type`) VALUES ('Dont Mess With The Zohan', 'Adam Sandler', 'Dennis Dugan', '12', '2008', '0', '0', 'Action Comedy');
+INSERT INTO `film_library`.`films` (`F_Name`, `F_Producer`, `F_Director`, `F_Prizes`, `F_Year`, `F_Rating`, `F_Count_Rating`, `F_Type`) VALUES ('Jaws', 'Richard D. Zanuck', 'Steven Spielberg', '0', '1975', '0', '0', 'Thriller');
+INSERT INTO `film_library`.`films` (`F_Name`, `F_Producer`, `F_Director`, `F_Prizes`, `F_Year`, `F_Rating`, `F_Count_Rating`, `F_Type`) VALUES ('Fast & Furious', 'Neal H. Moritz', 'Rob Cohen', '1', '2001', '0', '0', 'Action');
+INSERT INTO `film_library`.`films` (`F_Name`, `F_Producer`, `F_Director`, `F_Prizes`, `F_Year`, `F_Rating`, `F_Count_Rating`, `F_Type`) VALUES ('Eternals', 'Kevin Feige', 'Chloé Zhao', '0', '2021', '0', '0', 'Superhero');
+INSERT INTO `film_library`.`films` (`F_Name`, `F_Producer`, `F_Director`, `F_Prizes`, `F_Year`, `F_Rating`, `F_Count_Rating`, `F_Type`) VALUES ('Black Widow', 'Kevin Feige', 'Cate Shortland', '4', '2021', '0', '0', 'Superhero');
+INSERT INTO `film_library`.`films` (`F_Name`, `F_Producer`, `F_Director`, `F_Prizes`, `F_Year`, `F_Rating`, `F_Count_Rating`, `F_Type`) VALUES ('Doctor Strange', 'Kevin Feige', 'Scott Derrickson', '5', '2016', '0', '0', 'Superhero');
+INSERT INTO `film_library`.`films` (`F_Name`, `F_Producer`, `F_Director`, `F_Prizes`, `F_Year`, `F_Rating`, `F_Count_Rating`, `F_Type`) VALUES ('Dune', 'Mary Parent', 'Denis Villeneuve', '1', '2021', '0', '0', 'Science Fiction');
+INSERT INTO `film_library`.`films` (`F_Name`, `F_Producer`, `F_Director`, `F_Prizes`, `F_Year`, `F_Rating`, `F_Count_Rating`, `F_Type`) VALUES ('Murder Mystery', 'Adam Sandler', 'Kyle Newacheck', '5', '2019', '0', '0', 'Comedy Mystery');
+INSERT INTO `film_library`.`films` (`F_Name`, `F_Producer`, `F_Director`, `F_Prizes`, `F_Year`, `F_Rating`, `F_Count_Rating`, `F_Type`) VALUES ('Red Notice', 'Beau Flynn', 'Rawson Marshall Thurber', '7', '2021', '0', '0', 'Action Comedy');
+INSERT INTO `film_library`.`films` (`F_Name`, `F_Producer`, `F_Director`, `F_Prizes`, `F_Year`, `F_Rating`, `F_Count_Rating`, `F_Type`) VALUES ('Free Guy', 'Ryan Reynolds', 'Shawn Levy', '7', '2021', '0', '0', 'Science Fiction Comedy');
+INSERT INTO `film_library`.`films` (`F_Name`, `F_Producer`, `F_Director`, `F_Prizes`, `F_Year`, `F_Rating`, `F_Count_Rating`, `F_Type`) VALUES ('The Proposal', 'David Hoberman', 'Anne Fletcher', '4', '2009', '0', '0', 'Romantic Comedy');
+INSERT INTO `film_library`.`films` (`F_Name`, `F_Producer`, `F_Director`, `F_Prizes`, `F_Year`, `F_Rating`, `F_Count_Rating`, `F_Type`) VALUES ('Green Lantern', 'Donald De Line', 'Martin Campbell', '5', '2011', '0', '0', 'Superhero');
+INSERT INTO `film_library`.`films` (`F_Name`, `F_Producer`, `F_Director`, `F_Prizes`, `F_Year`, `F_Rating`, `F_Count_Rating`, `F_Type`) VALUES ('The Adam Project', 'David Ellison', 'Shawn Levy', '1', '2022', '0', '0', 'Science Fiction Action Comedy');
+INSERT INTO `film_library`.`films` (`F_Name`, `F_Producer`, `F_Director`, `F_Prizes`, `F_Year`, `F_Rating`, `F_Count_Rating`, `F_Type`) VALUES ('6 Underground', 'Ian Bryce', 'Michael Bay', '1', '2019', '0', '0', 'Vigilante Action Thriller');
+INSERT INTO `film_library`.`films` (`F_Name`, `F_Producer`, `F_Director`, `F_Prizes`, `F_Year`, `F_Rating`, `F_Count_Rating`, `F_Type`) VALUES ('The Hitmans Bodyguard', 'Ryan Reynolds', 'Patrick Hughes', '55', '2017', '0', '0', 'Action Comedy');
+INSERT INTO `film_library`.`films` (`F_Name`, `F_Producer`, `F_Director`, `F_Prizes`, `F_Year`, `F_Rating`, `F_Count_Rating`, `F_Type`) VALUES ('Bullet Train', 'Kelly McCormick', 'David Leitch', '7', '2022', '0', '0', 'Action Comedy');
+INSERT INTO `film_library`.`films` (`F_Name`, `F_Producer`, `F_Director`, `F_Prizes`, `F_Year`, `F_Rating`, `F_Count_Rating`, `F_Type`) VALUES ('Just Friends', 'Chris Bender', 'Roger Kumble', '1', '2005', '0', '0', 'Romantic Comedy');
+INSERT INTO `film_library`.`films` (`F_Name`, `F_Producer`, `F_Director`, `F_Prizes`, `F_Year`, `F_Rating`, `F_Count_Rating`, `F_Type`) VALUES ('The Change UP', 'David Dobkin', 'David Dobkin', '3', '2011', '0', '0', 'Romantic Comedy');
+INSERT INTO `film_library`.`films` (`F_Name`, `F_Producer`, `F_Director`, `F_Prizes`, `F_Year`, `F_Rating`, `F_Count_Rating`, `F_Type`) VALUES ('R.I.P.D.', 'Neal H. Moritz', 'Robert Schwentke', '5', '2013', '0', '0', 'Science Fiction Action Comedy');
 
 
 
@@ -116,39 +116,39 @@ INSERT INTO `film_library`.`actors` (`A_Name`, `A_LastName`, `A_Gender`) VALUES 
 
 
 
-INSERT INTO `film_library`.`users` (`C_Username`, `C_Password`) VALUES ('admin', 'admin')
-INSERT INTO `film_library`.`users` (`C_Username`, `C_Password`) VALUES ('bar', '2001')
-INSERT INTO `film_library`.`users` (`C_Username`, `C_Password`) VALUES ('rassul', '12345')
-INSERT INTO `film_library`.`users` (`C_Username`, `C_Password`) VALUES ('viktor', '12345')
-INSERT INTO `film_library`.`users` (`C_Username`, `C_Password`) VALUES ('niv', '12345')
-INSERT INTO `film_library`.`users` (`C_Username`, `C_Password`) VALUES ('rani', '12345')
+INSERT INTO `film_library`.`film_cast` (`F_ID`, `A_ID`, `FC_Role`) VALUES ('', '', '');
+INSERT INTO `film_library`.`film_cast` (`F_ID`, `A_ID`, `FC_Role`) VALUES ('', '', '');
+INSERT INTO `film_library`.`film_cast` (`F_ID`, `A_ID`, `FC_Role`) VALUES ('', '', '');
+INSERT INTO `film_library`.`film_cast` (`F_ID`, `A_ID`, `FC_Role`) VALUES ('', '', '');
+INSERT INTO `film_library`.`film_cast` (`F_ID`, `A_ID`, `FC_Role`) VALUES ('', '', '');
+INSERT INTO `film_library`.`film_cast` (`F_ID`, `A_ID`, `FC_Role`) VALUES ('', '', '');
+INSERT INTO `film_library`.`film_cast` (`F_ID`, `A_ID`, `FC_Role`) VALUES ('', '', '');
+INSERT INTO `film_library`.`film_cast` (`F_ID`, `A_ID`, `FC_Role`) VALUES ('', '', '');
+INSERT INTO `film_library`.`film_cast` (`F_ID`, `A_ID`, `FC_Role`) VALUES ('', '', '');
+INSERT INTO `film_library`.`film_cast` (`F_ID`, `A_ID`, `FC_Role`) VALUES ('', '', '');
+INSERT INTO `film_library`.`film_cast` (`F_ID`, `A_ID`, `FC_Role`) VALUES ('', '', '');
+INSERT INTO `film_library`.`film_cast` (`F_ID`, `A_ID`, `FC_Role`) VALUES ('', '', '');
+INSERT INTO `film_library`.`film_cast` (`F_ID`, `A_ID`, `FC_Role`) VALUES ('', '', '');
+INSERT INTO `film_library`.`film_cast` (`F_ID`, `A_ID`, `FC_Role`) VALUES ('', '', '');
+INSERT INTO `film_library`.`film_cast` (`F_ID`, `A_ID`, `FC_Role`) VALUES ('', '', '');
+INSERT INTO `film_library`.`film_cast` (`F_ID`, `A_ID`, `FC_Role`) VALUES ('', '', '');
+INSERT INTO `film_library`.`film_cast` (`F_ID`, `A_ID`, `FC_Role`) VALUES ('', '', '');
+INSERT INTO `film_library`.`film_cast` (`F_ID`, `A_ID`, `FC_Role`) VALUES ('', '', '');
+INSERT INTO `film_library`.`film_cast` (`F_ID`, `A_ID`, `FC_Role`) VALUES ('', '', '');
+INSERT INTO `film_library`.`film_cast` (`F_ID`, `A_ID`, `FC_Role`) VALUES ('', '', '');
+INSERT INTO `film_library`.`film_cast` (`F_ID`, `A_ID`, `FC_Role`) VALUES ('', '', '');
+INSERT INTO `film_library`.`film_cast` (`F_ID`, `A_ID`, `FC_Role`) VALUES ('', '', '');
+INSERT INTO `film_library`.`film_cast` (`F_ID`, `A_ID`, `FC_Role`) VALUES ('', '', '');
+INSERT INTO `film_library`.`film_cast` (`F_ID`, `A_ID`, `FC_Role`) VALUES ('', '', '');
+INSERT INTO `film_library`.`film_cast` (`F_ID`, `A_ID`, `FC_Role`) VALUES ('', '', '');
+INSERT INTO `film_library`.`film_cast` (`F_ID`, `A_ID`, `FC_Role`) VALUES ('', '', '');
+INSERT INTO `film_library`.`film_cast` (`F_ID`, `A_ID`, `FC_Role`) VALUES ('', '', '');
 
 
 
-INSERT INTO `film_library`.`film_cast` (`F_ID`, `A_ID`, `FC_Role`) VALUES ('', '', '');
-INSERT INTO `film_library`.`film_cast` (`F_ID`, `A_ID`, `FC_Role`) VALUES ('', '', '');
-INSERT INTO `film_library`.`film_cast` (`F_ID`, `A_ID`, `FC_Role`) VALUES ('', '', '');
-INSERT INTO `film_library`.`film_cast` (`F_ID`, `A_ID`, `FC_Role`) VALUES ('', '', '');
-INSERT INTO `film_library`.`film_cast` (`F_ID`, `A_ID`, `FC_Role`) VALUES ('', '', '');
-INSERT INTO `film_library`.`film_cast` (`F_ID`, `A_ID`, `FC_Role`) VALUES ('', '', '');
-INSERT INTO `film_library`.`film_cast` (`F_ID`, `A_ID`, `FC_Role`) VALUES ('', '', '');
-INSERT INTO `film_library`.`film_cast` (`F_ID`, `A_ID`, `FC_Role`) VALUES ('', '', '');
-INSERT INTO `film_library`.`film_cast` (`F_ID`, `A_ID`, `FC_Role`) VALUES ('', '', '');
-INSERT INTO `film_library`.`film_cast` (`F_ID`, `A_ID`, `FC_Role`) VALUES ('', '', '');
-INSERT INTO `film_library`.`film_cast` (`F_ID`, `A_ID`, `FC_Role`) VALUES ('', '', '');
-INSERT INTO `film_library`.`film_cast` (`F_ID`, `A_ID`, `FC_Role`) VALUES ('', '', '');
-INSERT INTO `film_library`.`film_cast` (`F_ID`, `A_ID`, `FC_Role`) VALUES ('', '', '');
-INSERT INTO `film_library`.`film_cast` (`F_ID`, `A_ID`, `FC_Role`) VALUES ('', '', '');
-INSERT INTO `film_library`.`film_cast` (`F_ID`, `A_ID`, `FC_Role`) VALUES ('', '', '');
-INSERT INTO `film_library`.`film_cast` (`F_ID`, `A_ID`, `FC_Role`) VALUES ('', '', '');
-INSERT INTO `film_library`.`film_cast` (`F_ID`, `A_ID`, `FC_Role`) VALUES ('', '', '');
-INSERT INTO `film_library`.`film_cast` (`F_ID`, `A_ID`, `FC_Role`) VALUES ('', '', '');
-INSERT INTO `film_library`.`film_cast` (`F_ID`, `A_ID`, `FC_Role`) VALUES ('', '', '');
-INSERT INTO `film_library`.`film_cast` (`F_ID`, `A_ID`, `FC_Role`) VALUES ('', '', '');
-INSERT INTO `film_library`.`film_cast` (`F_ID`, `A_ID`, `FC_Role`) VALUES ('', '', '');
-INSERT INTO `film_library`.`film_cast` (`F_ID`, `A_ID`, `FC_Role`) VALUES ('', '', '');
-INSERT INTO `film_library`.`film_cast` (`F_ID`, `A_ID`, `FC_Role`) VALUES ('', '', '');
-INSERT INTO `film_library`.`film_cast` (`F_ID`, `A_ID`, `FC_Role`) VALUES ('', '', '');
-INSERT INTO `film_library`.`film_cast` (`F_ID`, `A_ID`, `FC_Role`) VALUES ('', '', '');
-INSERT INTO `film_library`.`film_cast` (`F_ID`, `A_ID`, `FC_Role`) VALUES ('', '', '');
-INSERT INTO `film_library`.`film_cast` (`F_ID`, `A_ID`, `FC_Role`) VALUES ('', '', '');
+INSERT INTO `film_library`.`users` (`U_Username`, `U_Password`) VALUES ('admin', 'admin')
+INSERT INTO `film_library`.`users` (`U_Username`, `U_Password`) VALUES ('bar', '2001')
+INSERT INTO `film_library`.`users` (`U_Username`, `U_Password`) VALUES ('rassul', '12345')
+INSERT INTO `film_library`.`users` (`U_Username`, `U_Password`) VALUES ('viktor', '12345')
+INSERT INTO `film_library`.`users` (`U_Username`, `U_Password`) VALUES ('niv', '12345')
+INSERT INTO `film_library`.`users` (`U_Username`, `U_Password`) VALUES ('rani', '12345')

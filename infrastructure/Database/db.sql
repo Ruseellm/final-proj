@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS Films (
     F_Prizes INT,
     F_Year INT,
     F_Ratings INT,
+    F_Count_Ratings INT,
     F_Type VARCHAR(50)
 );
 CREATE TABLE IF NOT EXISTS Actors (
@@ -21,7 +22,7 @@ CREATE TABLE IF NOT EXISTS FilmCast (
     FOREIGN KEY (A_ID) REFERENCES Actors(A_ID)
 );
 CREATE TABLE IF NOT EXISTS Users (
-	C_ID INT AUTO_INCREMENT PRIMARY KEY,
-	C_Username VARCHAR(100),
-    C_Password VARCHAR(100)
+	U_ID INT AUTO_INCREMENT PRIMARY KEY,
+	U_Username VARCHAR(100),
+    U_Password VARCHAR(100)
 );
