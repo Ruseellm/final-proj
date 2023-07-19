@@ -10,10 +10,6 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "~>3.0"
     }
-    random = {
-      source  = "hashicorp/random"
-      version = "~>3.0"
-    }
     time = {
       source  = "hashicorp/time"
       version = "0.9.1"
@@ -24,9 +20,10 @@ terraform {
     }
   }
 }
-
+#Configure Azurerm Provider
+#When Copying Change Subscribtion and tenanat IDs 
 provider "azurerm" {
   features {}
-  subscription_id = "826acb01-6bc8-47eb-815e-8afd69055ea2"
+  subscription_id = "826acb01-6bc8-47eb-815e-8afd69055ea2" 
   tenant_id = "f06ae6a4-edc9-47f1-a02b-d4158c202cf3"
 }

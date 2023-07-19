@@ -1,8 +1,9 @@
+#Create Azure Resource Group
 resource "azurerm_resource_group" "rg-finalproj" {
   name     = var.resource_group_name
   location = var.rg-location
 }
-
+#Create Cluster in AKS
 resource "azurerm_kubernetes_cluster" "k8s" {
   location            = azurerm_resource_group.rg-finalproj.location
   name                = var.aks_name
@@ -30,13 +31,14 @@ resource "azurerm_kubernetes_cluster" "k8s" {
     load_balancer_sku = "standard"
   }
 }
-
+#Configure Kubernetes Provider
 provider "kubernetes" {
   host                   = azurerm_kubernetes_cluster.k8s.kube_config.0.host
   client_certificate     = base64decode(azurerm_kubernetes_cluster.k8s.kube_config.0.client_certificate)
   client_key             = base64decode(azurerm_kubernetes_cluster.k8s.kube_config.0.client_key)
   cluster_ca_certificate = base64decode(azurerm_kubernetes_cluster.k8s.kube_config.0.cluster_ca_certificate)
 }
+#Configure Helm Provider
 provider "helm" {
   kubernetes {
     host                   = azurerm_kubernetes_cluster.k8s.kube_config.0.host
@@ -45,36 +47,43 @@ provider "helm" {
     cluster_ca_certificate = base64decode(azurerm_kubernetes_cluster.k8s.kube_config.0.cluster_ca_certificate)
   }
 }
+#Create Namesapce cicd
 resource "kubernetes_namespace" "cicd" {
   metadata {
     name = "cicd"
   }
 }
+#Create Namesapce monitoring
 resource "kubernetes_namespace" "monitoring" {
   metadata {
     name = "monitoring"
   }
 }
+#Create Namesapce dev
 resource "kubernetes_namespace" "dev" {
   metadata {
     name = "dev"
   }
 }
+#Create Namesapce stage
 resource "kubernetes_namespace" "stage" {
   metadata {
     name = "stage"
   }
 }
+#Create Namesapce Prod
 resource "kubernetes_namespace" "prod" {
   metadata {
     name = "prod"
   }
 }
+#Create Namesapce Database
 resource "kubernetes_namespace" "database" {
   metadata {
     name = "database"
   }
 }
+#Install Prometheus using Helm
 resource "helm_release" "prometheus" {
   chart = "prometheus"
   name = "prometheus"
@@ -99,7 +108,7 @@ resource "helm_release" "prometheus" {
     })
   }
 }
-
+#Install Grafana using Helm
 resource "helm_release" "grafana" {
   name = "grafana"
   namespace = "monitoring"
@@ -120,7 +129,7 @@ resource "helm_release" "grafana" {
     value = 8080
   }
 }
-
+#Install Jenkins using Helm
 resource "helm_release" "jenkins" {
   name = "jenkins"
   namespace = "cicd"

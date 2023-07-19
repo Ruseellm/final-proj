@@ -1,11 +1,6 @@
-resource "random_pet" "ssh_key_name" {
-  prefix    = "ssh"
-  separator = ""
-}
-
 resource "azapi_resource" "ssh_public_key" {
   type      = "Microsoft.Compute/sshPublicKeys@2022-11-01"
-  name      = random_pet.ssh_key_name.id
+  name      = "clsuter_ssh_key"
   location  = var.rg-location
   parent_id = azurerm_resource_group.rg-finalproj.id
 }
