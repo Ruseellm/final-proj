@@ -6,7 +6,7 @@ pipeline {
     }
   environment {
     DOCKER_USER = 'itsvictorfy'
-    DOCKER_PASS = 'Uheyur1252@$'
+    DOCKER_PASS = ''
   }
   stages {
         stage('Build') {
