@@ -95,6 +95,10 @@ resource "helm_release" "prometheus" {
     value = false
   }
   set {
+    name  = "service.type"
+    value = "LoadBalancer"
+  }
+  set {
     name = "server\\.resources"
     value = yamlencode({
       limits = {
@@ -118,16 +122,6 @@ resource "helm_release" "grafana" {
     name  = "service.type"
     value = "LoadBalancer"
   }
-
-  set {
-    name  = "protocolHttp"
-    value = "true"
-  }
-
-  set {
-    name  = "service.externalPort"
-    value = 8080
-  }
 }
 #Install Jenkins using Helm
 resource "helm_release" "jenkins" {
@@ -136,20 +130,35 @@ resource "helm_release" "jenkins" {
   repository = "https://charts.jenkins.io"
   chart = "jenkins"
   set {
-    name  = "service.type"
+    name  = "controler.serviceType"
     value = "LoadBalancer"
   }
 
   set {
-    name  = "protocolHttp"
-    value = "true"
+    name = "agent.image"
+    value = "itsvictorfy/final_proj"
   }
 
   set {
-    name  = "service.externalPort"
+    name = "agent.tag"
+    value = "jenkinsSlave"
+  }
+
+  set {
+    name  = "controler.targetPort"
     value = 80
   }
 
+}
+resource "helm_release" "argocd" {
+  name = "argocd"
+  namespace = "cicd"
+  repository = "https://argoproj.github.io/argo-helm"
+  chart = "argo-cd"
+  set {
+    name = "service.type"
+    value = "LoadBalancer"
+  }
 }
 
 output "client_certificate" {

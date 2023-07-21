@@ -4,23 +4,24 @@ pipeline {
           inheritFrom 'maven'
       }
     }
-    options {
-        skipStagesAfterUnstable()
-    }
-    stages {
+  environment {
+    DOCKER_USER = 'itsvictorfy'
+    DOCKER_PASS = 'Uheyur1252@$'
+  }
+  stages {
         stage('Build') {
             steps {
-                sh 'docker build .'
+                sh 'docker login -u $DOCKER_USER -p $DOCKER_PASS'
             }
         }
         stage('Test'){
             steps {
-                sh 'echo Test'
+                sh 'docker build ./application/ --tag itsvictorfy/final_proj:latest'
             }
         }
         stage('Deploy') {
             steps {
-                sh 'echo Deploy'
+                sh 'docker push itsvictorfy/dropit'
             }
         }
     }
