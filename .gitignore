@@ -14,3 +14,4 @@
 /infrastructure/kubernetes/README.md
 /infrastructure/monitoring/.git/*
 /infrastructure/monitoring/README.md
+/infrastructure/Jenkins/Dockerfile
