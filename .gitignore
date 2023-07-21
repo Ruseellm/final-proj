@@ -1,0 +1,16 @@
+/infrastructure/.terraform.lock.hcl
+/infrastructure/.terraform
+/application/film-lib-frontend/.git/*
+/application/film-lib-frontend/README.md
+/application/film-lib-backend/.git/*
+/application/film-lib-backend/README.md
+/infrastructure/argocd/.git/*
+/infrastructure/argocd/README.md
+/infrastructure/database/.git/*
+/infrastructure/database/README.md
+/infrastructure/jenkins/.git/*
+/infrastructure/jenkins/README.md
+/infrastructure/kubernetes/.git/*
+/infrastructure/kubernetes/README.md
+/infrastructure/monitoring/.git/*
+/infrastructure/monitoring/README.md

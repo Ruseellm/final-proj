@@ -5,7 +5,7 @@ import uuid
 
 app = Flask(__name__)
 
-db_host = 'weightTracker-database-vm'
+db_host = ''
 db_port = '5432'
 db_name = 'weightdb'
 db_user = 'postgres'

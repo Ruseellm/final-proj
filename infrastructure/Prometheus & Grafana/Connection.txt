@@ -1,9 +1,0 @@
-## Add Prometheus data source into Grafana dashboard
-
-- Login to Grafana
-
-- Add data source with the URL of the prometheus server and save it (http://localhost:9090)
-
-- Create a new dashboard by importing template 3662 from grafana.com
-
-- Choose Prometheus as a data source
