@@ -17,7 +17,7 @@ sudo usermod -aG docker $USER
         sh '''docker login -u $DOCKER_USER -p $DOCKER_PASS
 '''
         echo 'Docker Build'
-        sh '''docker build . --tag itsvictorfy/dropit:latest
+        sh '''docker build ./application/ --tag itsvictorfy/dropit:latest
 '''
         echo 'Docker Push'
         sh 'docker push itsvictorfy/dropit'
