@@ -136,7 +136,7 @@ resource "helm_release" "jenkins" {
   }
 set {
     name  = "controller.installPlugins"
-    value = jsonencode([
+    value = join(",", [
       "kubernetes:3937.vd7b_82db_e347b_",
       "workflow-aggregator:596.v8c21c963d92d",
       "git:5.1.0",
