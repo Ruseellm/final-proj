@@ -4,6 +4,24 @@ resource "azurerm_resource_group" "rg-finalproj" {
   location = var.rg-location
 }
 #Create Cluster in AKS
+data "azuread_client_config" "current" {}
+resource "azuread_application" "finalprojAD" {
+  display_name = "finalprojAD"
+  owners       = [data.azuread_client_config.current.object_id]
+}
+
+resource "azuread_service_principal" "terraform" {
+  application_id               = azuread_application.finalprojAD.application_id
+  app_role_assignment_required = true
+  owners                       = [data.azuread_client_config.current.object_id]
+}
+
+resource "azurerm_role_assignment" "example" {
+  scope                = azurerm_kubernetes_cluster.k8s.id
+  role_definition_name = "Contributor"
+  principal_id         = azuread_service_principal.terraform.id
+}
+
 resource "azurerm_kubernetes_cluster" "k8s" {
   location            = azurerm_resource_group.rg-finalproj.location
   name                = var.aks_name
@@ -17,7 +35,7 @@ resource "azurerm_kubernetes_cluster" "k8s" {
   default_node_pool {
     name       = "agentpool"
     vm_size    = "Standard_D2_v2"
-    node_count = 2
+    node_count = 1
   }
   linux_profile {
     admin_username = "ubuntu"
@@ -31,6 +49,7 @@ resource "azurerm_kubernetes_cluster" "k8s" {
     load_balancer_sku = "standard"
   }
 }
+
 #Configure Kubernetes Provider
 provider "kubernetes" {
   host                   = azurerm_kubernetes_cluster.k8s.kube_config.0.host
@@ -125,13 +144,17 @@ resource "helm_release" "grafana" {
 }
 #Install Jenkins using Helm
 resource "helm_release" "jenkins" {
-  name = "jenkins"
+  name      = "jenkins"
   namespace = "cicd"
   repository = "https://charts.jenkins.io"
-  chart = "jenkins"
+  chart     = "jenkins"
   set {
     name  = "controler.serviceType"
     value = "LoadBalancer"
+  }
+  set {
+    name = "controller.installPlugins"
+    value = "kubernetes:1.31.3 workflow-aggregator:2.6 git:4.10.2 configuration-as-code:1414.v878271fc496f blueocean:1.27.4"
   }
 
   set {
