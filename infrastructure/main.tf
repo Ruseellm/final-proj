@@ -4,24 +4,6 @@ resource "azurerm_resource_group" "rg-finalproj" {
   location = var.rg-location
 }
 #Create Cluster in AKS
-data "azuread_client_config" "current" {}
-resource "azuread_application" "finalprojAD" {
-  display_name = "finalprojAD"
-  owners       = [data.azuread_client_config.current.object_id]
-}
-
-resource "azuread_service_principal" "terraform" {
-  application_id               = azuread_application.finalprojAD.application_id
-  app_role_assignment_required = true
-  owners                       = [data.azuread_client_config.current.object_id]
-}
-
-resource "azurerm_role_assignment" "example" {
-  scope                = azurerm_kubernetes_cluster.k8s.id
-  role_definition_name = "Contributor"
-  principal_id         = azuread_service_principal.terraform.id
-}
-
 resource "azurerm_kubernetes_cluster" "k8s" {
   location            = azurerm_resource_group.rg-finalproj.location
   name                = var.aks_name
@@ -154,7 +136,7 @@ resource "helm_release" "jenkins" {
   }
   set {
     name = "controller.installPlugins"
-    value = "kubernetes:1.31.3 workflow-aggregator:2.6 git:4.10.2 configuration-as-code:1414.v878271fc496f blueocean:1.27.4"
+    value = "kubernetes:1.31.3,workflow-aggregator:2.6,git:4.10.2,configuration-as-code:1414.v878271fc496f,blueocean:1.27.4,gitlab-plugin:1.7.14"
   }
 
   set {
@@ -174,10 +156,10 @@ resource "helm_release" "jenkins" {
 
 }
 resource "helm_release" "argocd" {
-  name = "argocd"
+  name      = "argocd"
   namespace = "cicd"
   repository = "https://argoproj.github.io/argo-helm"
-  chart = "argo-cd"
+  chart     = "argo-cd"
   set {
     name = "service.type"
     value = "LoadBalancer"
