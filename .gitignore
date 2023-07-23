@@ -15,3 +15,4 @@
 /infrastructure/monitoring/.git/*
 /infrastructure/monitoring/README.md
 /infrastructure/Jenkins/Dockerfile
+infrastructure/terraform.tfstate
