@@ -134,9 +134,15 @@ resource "helm_release" "jenkins" {
     name  = "controler.serviceType"
     value = "LoadBalancer"
   }
-  set {
-    name = "controller.installPlugins"
-    value = "kubernetes:1.31.3,workflow-aggregator:2.6,git:4.10.2,configuration-as-code:1414.v878271fc496f,blueocean:1.27.4,gitlab-plugin:1.7.14"
+set {
+    name  = "controller.installPlugins"
+    value = jsonencode([
+      "kubernetes:3937.vd7b_82db_e347b_",
+      "workflow-aggregator:596.v8c21c963d92d",
+      "git:5.1.0",
+      "configuration-as-code:1647.ve39ca_b_829b_42",
+      "blueocean:1.27.4"
+    ])
   }
 
   set {
