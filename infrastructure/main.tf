@@ -131,19 +131,21 @@ resource "helm_release" "jenkins" {
   repository = "https://charts.jenkins.io"
   chart     = "jenkins"
   set {
-    name  = "controler.serviceType"
+    name  = "controller.serviceType"
     value = "LoadBalancer"
   }
-set {
-    name  = "controller.installPlugins"
-    value = jsonencode(toset([
-      { name = "kubernetes", version = "3937.vd7b_82db_e347b_" },
-      { name = "workflow-aggregator", version = "596.v8c21c963d92d" },
-      { name = "git", version = "5.1.0" },
-      { name = "configuration-as-code", version = "1647.ve39ca_b_829b_42" },
-      { name = "blueocean", version = "1.27.4" },
-    ]))
+  set {
+    name  = "controller.installPlugins" 
+    value = jsonencode([
+      "kubernetes:3937.vd7b_82db_e347b_",
+      "workflow-aggregator:596.v8c21c963d92d",
+      "git:5.1.0",
+      "configuration-as-code:1647.ve39ca_b_829b_42",
+      "blueocean:1.27.4"
+    ])
   }
+}
+
 
   set {
     name = "agent.image"

@@ -1,30 +1,55 @@
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: app-ingress
+#   namespace: cicd
+#   annotations:
+#     nginx.ingress.kubernetes.io/rewrite-target: /
+#     nginx.ingress.kubernetes.io/ssl-redirect: "false"
+#     nginx.ingress.kubernetes.io/add-base-url: "true"
+# spec:
+#   ingressClassName: nginx
+#   rules:
+#   -  http:
+#       paths:
+#         - path: /jenkins
+#           pathType: Prefix
+#           backend:
+#             service:
+#               name: jenkins
+#               port:
+#                 number: 8080
+#         - path: /argo
+#           pathType: Prefix
+#           backend:
+#             service:
+#               name: argocd-server
+#               port:
+#                 number: 80
+# ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: app-ingress
   namespace: cicd
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
-    nginx.ingress.kubernetes.io/ssl-redirect: "false"
-    nginx.ingress.kubernetes.io/add-base-url: "true"
+    # cert-manager.io/cluster-issuer: "base-issuer" # SSL certificates issuer - you don't need it if you don't use SSL
+    # nginx.ingress.kubernetes.io/proxy-body-size: "200m" # If you need to upload big files
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
+  # You can check it with kubectl get ingressclass
   ingressClassName: nginx
   rules:
-  -  http:
-      paths:
-        - path: /jenkins
-          pathType: Prefix
-          backend:
-            service:
-              name: jenkins
-              port:
-                number: 8080
-        - path: /argo
-          pathType: Prefix
-          backend:
-            service:
-              name: argocd-server
-              port:
-                number: 80
-        
-        
+    - http:
+        paths:
+          - pathType: Prefix
+            path: /jenkins(/|$)(.*)
+            # https://XXX.XXX.XXX.XXX/jenkins - (/|$) - means that it can be /jenkins or /jenkins/,
+            # (.*) - means that it can be /jenkins/ or /jenkins/anything,
+            # $2 in the rewrite-target annotation will be translated to /anything in the request to backend service01/anything
+            backend:
+              service:
+                name: jenkins
+                port:
+                  number: 8080
+

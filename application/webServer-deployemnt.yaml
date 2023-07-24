@@ -22,7 +22,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: homepage
+  name: web-server
 spec:
   type: LoadBalancer
   ports:
@@ -30,4 +30,4 @@ spec:
     port: 8080
     targetPort: 8080
   selector:
-    app: flask
+    app: web-server
