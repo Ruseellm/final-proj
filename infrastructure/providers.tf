@@ -27,3 +27,19 @@ provider "azurerm" {
   subscription_id = "826acb01-6bc8-47eb-815e-8afd69055ea2" 
   tenant_id = "f06ae6a4-edc9-47f1-a02b-d4158c202cf3"
 }
+
+// Bar:
+// Sub ID - 18b6fb7d-fae3-4420-8047-ae930ec89feb
+// Tenant ID - 45289b7f-4357-472a-8a21-3da5b1cc14ae
+
+// Victor:
+// Sub ID - 
+// Tenant ID -
+
+// Niv:
+// Sub ID - 
+// Tenant ID -
+
+// Russel:
+// Sub ID - 
+// Tenant ID -
