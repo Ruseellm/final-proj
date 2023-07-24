@@ -1,4 +1,4 @@
-``` Inserting ```
+/* Inserting */
 
 INSERT INTO `film_library`.`films` (`F_Name`, `F_Producer`, `F_Director`, `F_Prizes`, `F_Year`, `F_Rating`, `F_Count_Rating`, `F_Type`) VALUES ('Citizen Kane', 'Orson Welles', 'Orson Welles', '6', '1941', '0', '0', 'Drama');
 INSERT INTO `film_library`.`films` (`F_Name`, `F_Producer`, `F_Director`, `F_Prizes`, `F_Year`, `F_Rating`, `F_Count_Rating`, `F_Type`) VALUES ('The Godfather', 'Albert Stotland Ruddy', 'Francis Ford Coppola', '2', '1972', '0', '0', 'Crime');
