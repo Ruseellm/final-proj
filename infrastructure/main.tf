@@ -144,9 +144,6 @@ resource "helm_release" "jenkins" {
       "blueocean:1.27.4"
     ])
   }
-}
-
-
   set {
     name = "agent.image"
     value = "itsvictorfy/final_proj"
@@ -161,7 +158,6 @@ resource "helm_release" "jenkins" {
     name  = "controler.targetPort"
     value = 80
   }
-
 }
 resource "helm_release" "argocd" {
   name      = "argocd"
