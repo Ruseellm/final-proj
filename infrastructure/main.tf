@@ -1,8 +1,9 @@
+#Create Azure Resource Group
 resource "azurerm_resource_group" "rg-finalproj" {
   name     = var.resource_group_name
   location = var.rg-location
 }
-
+#Create Cluster in AKS
 resource "azurerm_kubernetes_cluster" "k8s" {
   location            = azurerm_resource_group.rg-finalproj.location
   name                = var.aks_name
@@ -16,7 +17,7 @@ resource "azurerm_kubernetes_cluster" "k8s" {
   default_node_pool {
     name       = "agentpool"
     vm_size    = "Standard_D2_v2"
-    node_count = 2
+    node_count = 1
   }
   linux_profile {
     admin_username = "ubuntu"
@@ -31,12 +32,14 @@ resource "azurerm_kubernetes_cluster" "k8s" {
   }
 }
 
+#Configure Kubernetes Provider
 provider "kubernetes" {
   host                   = azurerm_kubernetes_cluster.k8s.kube_config.0.host
   client_certificate     = base64decode(azurerm_kubernetes_cluster.k8s.kube_config.0.client_certificate)
   client_key             = base64decode(azurerm_kubernetes_cluster.k8s.kube_config.0.client_key)
   cluster_ca_certificate = base64decode(azurerm_kubernetes_cluster.k8s.kube_config.0.cluster_ca_certificate)
 }
+#Configure Helm Provider
 provider "helm" {
   kubernetes {
     host                   = azurerm_kubernetes_cluster.k8s.kube_config.0.host
@@ -45,36 +48,43 @@ provider "helm" {
     cluster_ca_certificate = base64decode(azurerm_kubernetes_cluster.k8s.kube_config.0.cluster_ca_certificate)
   }
 }
+#Create Namesapce cicd
 resource "kubernetes_namespace" "cicd" {
   metadata {
     name = "cicd"
   }
 }
+#Create Namesapce monitoring
 resource "kubernetes_namespace" "monitoring" {
   metadata {
     name = "monitoring"
   }
 }
+#Create Namesapce dev
 resource "kubernetes_namespace" "dev" {
   metadata {
     name = "dev"
   }
 }
+#Create Namesapce stage
 resource "kubernetes_namespace" "stage" {
   metadata {
     name = "stage"
   }
 }
+#Create Namesapce Prod
 resource "kubernetes_namespace" "prod" {
   metadata {
     name = "prod"
   }
 }
+#Create Namesapce Database
 resource "kubernetes_namespace" "database" {
   metadata {
     name = "database"
   }
 }
+#Install Prometheus using Helm
 resource "helm_release" "prometheus" {
   chart = "prometheus"
   name = "prometheus"
@@ -84,6 +94,10 @@ resource "helm_release" "prometheus" {
   set {
     name  = "server.persistentVolume.enabled"
     value = false
+  }
+  set {
+    name  = "service.type"
+    value = "LoadBalancer"
   }
   set {
     name = "server\\.resources"
@@ -99,7 +113,7 @@ resource "helm_release" "prometheus" {
     })
   }
 }
-
+#Install Grafana using Helm
 resource "helm_release" "grafana" {
   name = "grafana"
   namespace = "monitoring"
@@ -109,38 +123,51 @@ resource "helm_release" "grafana" {
     name  = "service.type"
     value = "LoadBalancer"
   }
-
-  set {
-    name  = "protocolHttp"
-    value = "true"
-  }
-
-  set {
-    name  = "service.externalPort"
-    value = 8080
-  }
 }
-
+#Install Jenkins using Helm
 resource "helm_release" "jenkins" {
-  name = "jenkins"
+  name      = "jenkins"
   namespace = "cicd"
   repository = "https://charts.jenkins.io"
-  chart = "jenkins"
+  chart     = "jenkins"
   set {
-    name  = "service.type"
+    name  = "controller.serviceType"
     value = "LoadBalancer"
   }
-
   set {
-    name  = "protocolHttp"
-    value = "true"
+    name  = "controller.installPlugins" 
+    value = jsonencode([
+      "kubernetes:3937.vd7b_82db_e347b_",
+      "workflow-aggregator:596.v8c21c963d92d",
+      "git:5.1.0",
+      "configuration-as-code:1647.ve39ca_b_829b_42",
+      "blueocean:1.27.4"
+    ])
+  }
+  set {
+    name = "agent.image"
+    value = "itsvictorfy/final_proj"
   }
 
   set {
-    name  = "service.externalPort"
+    name = "agent.tag"
+    value = "jenkinsSlave"
+  }
+
+  set {
+    name  = "controler.targetPort"
     value = 80
   }
-
+}
+resource "helm_release" "argocd" {
+  name      = "argocd"
+  namespace = "cicd"
+  repository = "https://argoproj.github.io/argo-helm"
+  chart     = "argo-cd"
+  set {
+    name = "service.type"
+    value = "LoadBalancer"
+  }
 }
 
 output "client_certificate" {
