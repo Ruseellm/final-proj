@@ -91,11 +91,9 @@ metadata:
   labels:
     app: postgresdb
 spec:
-  # Choose how to expose your service
-  type: NodePort
-  ports:
-    # The port number to expose the service
-    - port: 5432
-  # Pod to route service traffic  
   selector:
-    app: postgresdb
+    app: postgresql-db
+  type: LoadBalancer
+  ports:
+    - port: 5432
+      targetPort: 5432
