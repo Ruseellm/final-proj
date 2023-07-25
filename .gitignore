@@ -11,5 +11,10 @@
 /infrastructure/monitoring/.git/*
 /infrastructure/monitoring/README.md
 /infrastructure/Jenkins/Dockerfile
+<<<<<<< HEAD
 /infrastructure/terraform.tfstate
 /application/film-library/.git/*
+=======
+infrastructure/terraform.tfstate
+/application/film-library
+>>>>>>> 716eac2a74f7bd170597e6aabfa83afe61f34f4d

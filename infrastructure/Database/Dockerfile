@@ -1,2 +1,2 @@
 FROM postgres:latest
-COPY *.sql /docker-entrypoint-initdb.d/
+COPY ^[0-9]*.sql /docker-entrypoint-initdb.d/

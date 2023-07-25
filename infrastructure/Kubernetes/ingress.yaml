@@ -27,6 +27,8 @@
 #               port:
 #                 number: 80
 # ---
+#helm install my-release oci://ghcr.io/nginxinc/charts/nginx-ingress --version 0.0.0-edge
+
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -40,16 +42,17 @@ spec:
   # You can check it with kubectl get ingressclass
   ingressClassName: nginx
   rules:
-    - http:
+    - host: ingress-nginx-controller
+      http:
         paths:
-          - pathType: Prefix
-            path: /jenkins(/|$)(.*)
-            # https://XXX.XXX.XXX.XXX/jenkins - (/|$) - means that it can be /jenkins or /jenkins/,
-            # (.*) - means that it can be /jenkins/ or /jenkins/anything,
-            # $2 in the rewrite-target annotation will be translated to /anything in the request to backend service01/anything
-            backend:
-              service:
-                name: jenkins
-                port:
-                  number: 8080
+        - pathType: ImplementationSpecific
+          path: /jenkins(/|$)(.*)
+          # https://XXX.XXX.XXX.XXX/jenkins - (/|$) - means that it can be /jenkins or /jenkins/,
+          # (.*) - means that it can be /jenkins/ or /jenkins/anything,
+          # $2 in the rewrite-target annotation will be translated to /anything in the request to backend service01/anything
+          backend:
+            service:
+              name: jenkins
+              port:
+                number: 8080
 
