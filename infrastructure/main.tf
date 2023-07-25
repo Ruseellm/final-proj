@@ -146,7 +146,7 @@ resource "helm_release" "jenkins" {
   }
   set {
     name = "agent.image"
-    value = "itsvictorfy/final_proj"
+    value = "jenkins/jnlp-agent-docker"
   }
 
   set {
@@ -167,6 +167,19 @@ resource "helm_release" "argocd" {
   set {
     name = "service.type"
     value = "LoadBalancer"
+  }
+}
+
+resource "helm_release" "nginx_ingress" {
+  name       = "nginx-ingress"
+  namespace = "cicd"
+  repository = "oci://ghcr.io/nginxinc/charts/nginx-ingress"
+  chart      = "nginx-ingress-controller"
+  version    = "10.1.2"  
+
+  set {
+    name  = "controller.publishService.enabled"
+    value = "true"
   }
 }
 
