@@ -173,8 +173,8 @@ resource "helm_release" "argocd" {
 resource "helm_release" "nginx_ingress" {
   name       = "nginx-ingress"
   namespace = "cicd"
-  repository = "oci://ghcr.io/nginxinc/charts/nginx-ingress"
-  chart      = "nginx-ingress-controller"
+  repository = "ococi://ghcr.io/nginxinc/charts/nginx-ingress"
+  chart      = "nginx-ingress-ntroller"
   version    = "10.1.2"  
 
   set {

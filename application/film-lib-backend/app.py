@@ -1,121 +1,92 @@
 # Flask web application
-from flask import Flask, render_template, jsonify, request
+from flask import Flask, render_template, jsonify
 import psycopg2
-import uuid
 
 app = Flask(__name__)
 
-db_host = ''
-db_port = '5432'
-db_name = 'weightdb'
-db_user = 'postgres'
-db_password = 'admin'
+# Replace the following with your PostgreSQL database connection details
+db_connection_config = {
+    'host': 'your_host',
+    'database': 'film_library',
+    'user': 'your_username',
+    'password': 'your_password'
+}
 
-class User:
-    def __init__(self, name, email, password):
-        self.name = name
-        self.email = email
-        self.password = password
-        self.id = uuid.uuid1()
 
-    def getname(self):
-        return self.name
+class Movie:
+    def __init__(self, title, director, year, genre):
+        self.title = title
+        self.director = director
+        self.year = year
+        self.genre = genre
 
-    def setname(self, name):
-        self.name = name
-
-    def getemail(self):
-        return self.email
-
-    def setemail(self, email):
-        self.email = email
-
-    def getpassword(self):
-        return self.password
-
-    def setpassword(self, password):
-        self.password = password
+class Actor:
+    def __init__(self, first_name, last_name, gender):
+        self.first_name = first_name
+        self.last_name = last_name
+        self.gender = gender
 
 
 
-def createUser(name, email, password):
-    try:
-        newuser = User(name, email, password)
-        connection = psycopg2.connect(
-            host=db_host,
-            database=db_name,
-            user=db_user,
-            password=db_password
-        )
-
-        cursor = connection.cursor()
-        insert_query = "INSERT INTO users (name, email, password, num_tickets) VALUES (%s, %s, %s, %s)"
-        user_data = (newuser.getname(), newuser.get_email(), newuser.get_password())
-        cursor.execute(insert_query, user_data)
-        connection.commit()
-        cursor.close()
-        connection.close()
-        print("Entry inserted successfully!")
-        response = {
-            'status': 'success',
-            'name': name,
-            'email':newuser.getemail(),
-            'database_status': 'Data inserted successfully'
-        }
-        return jsonify(response)
-    except (Exception, psycopg2.Error) as error:
-        response = {
-            'status': 'error',
-            'message': 'Database error',
-            'error_details': str(error)
-        }
-        return jsonify(response), 500
-
-def getUser(email):
+@app.route('/movies')
+def index():
     try:
         # Establish a connection to the PostgreSQL database
-        connection = psycopg2.connect(
-            host=db_host,
-            database=db_name,
-            user=db_user,
-            password=db_password
-        )
-        cursor = connection.cursor()
-        select_query = "SELECT * FROM users WHERE email = %s"
-        cursor.execute(select_query, (name,))
-        result = cursor.fetchone()
+        conn = psycopg2.connect(**db_connection_config)
+        
+        # Create a cursor to interact with the database
+        cursor = conn.cursor()
 
-        if result:
-            # Retrieve the relevant information from the database
-            name = result[0]
-            email = result[1]
+        # Query all movies from the 'movies' table
+        cursor.execute("SELECT * FROM movies")
+        rows = cursor.fetchall()
 
-            response = {
-                'status': 'success',
-                'name': name,
-                'email': email
-            }
-        else:
-            response = {
-                'status': 'error',
-                'message': 'name not found in the database'
-            }
+        # Create a list to store movie objects
+        movies = []
+        for row in rows:
+            title, director, year, genre = row
+            movie = Movie(title, director, year, genre)
+            movies.append(movie)
 
-        return jsonify(response)
-    except (Exception, psycopg2.Error) as error:
-        print("Error while getting data:", error)
-        response = {
-                'status': 'error',
-                'message': 'error connecting to db'
-            }
-        return jsonify(response)
+        # Close the cursor and connection
+        cursor.close()
+        conn.close()
 
+        return render_template('movies.html', movies=movies)
+    except Exception as e:
+        return f"Error: {e}"
 
+@app.route('/actors')
+def actors():
+    try:
+        # Establish a connection to the PostgreSQL database
+        conn = psycopg2.connect(**db_connection_config)
 
+        # Create a cursor to interact with the database
+        cursor = conn.cursor()
+
+        # Query all actors/actresses from the 'actors' table
+        cursor.execute("SELECT * FROM actors")
+        actor_rows = cursor.fetchall()
+
+        # Create a list to store actor objects
+        actors = []
+        for row in actor_rows:
+            first_name, last_name, gender = row
+            actor = Actor(first_name, last_name, gender)
+            actors.append(actor)
+
+        # Close the cursor and connection
+        cursor.close()
+        conn.close()
+
+        return render_template('actors.html', actors=actors)
+    except Exception as e:
+        return f"Error: {e}"
 
 @app.route('/' , methods=["GET"])
 def home():
-    return render_template("homePage.html")
+    return render_template("Film_Library.html")
 
 @app.route('/ping', methods=["GET"])
 #test

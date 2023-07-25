@@ -42,7 +42,8 @@ spec:
   # You can check it with kubectl get ingressclass
   ingressClassName: nginx
   rules:
-    - http:
+    - host: ingress-nginx-controller
+      http:
         paths:
         - pathType: ImplementationSpecific
           path: /jenkins(/|$)(.*)

@@ -16,3 +16,4 @@
 /infrastructure/monitoring/README.md
 /infrastructure/Jenkins/Dockerfile
 infrastructure/terraform.tfstate
+/application/film-library
