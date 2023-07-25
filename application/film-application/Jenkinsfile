@@ -1,0 +1,28 @@
+pipeline {
+    agent {
+      kubernetes {
+          inheritFrom 'maven'
+      }
+    }
+  environment {
+    DOCKER_USER = 'itsvictorfy'
+    DOCKER_PASS = ''
+  }
+  stages {
+        stage('Build') {
+            steps {
+                sh 'docker login -u $DOCKER_USER -p $DOCKER_PASS'
+            }
+        }
+        stage('Test'){
+            steps {
+                sh 'docker build ./application/ --tag itsvictorfy/final_proj:latest'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                sh 'docker push itsvictorfy/dropit'
+            }
+        }
+    }
+}

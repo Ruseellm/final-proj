@@ -1,0 +1,16 @@
+# Default values for film-library-app.
+replicaCount: 2
+image:
+  repository: itsvictorfy/film-library-app
+  tag: V0.01
+  pullPolicy: IfNotPresent
+
+service:
+  type: LoadBalancer
+  port: 8080
+
+database:
+  host: your_database_host
+  database: film_library
+  user: your_database_username
+  password: your_database_password
