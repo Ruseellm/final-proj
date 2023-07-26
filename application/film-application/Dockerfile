@@ -1,5 +1,4 @@
 FROM python:3.8.3
-RUN mkdir /app
 WORKDIR /app
 COPY templates/* /app/templates
 COPY *.py /app/
