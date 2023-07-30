@@ -1,7 +1,7 @@
 pipeline {
     agent {
         kubernetes {
-        label 'promo-app'
+        label 'agent-app'
         yamlFile 'build-pod.yaml'
         defaultContainer 'ez-docker-helm-build'
         }
@@ -16,17 +16,34 @@ pipeline {
 
 
     stages {
-        stage('Build Docker Image') {
+        stage('Build image') {
             steps {
-                sh "docker build -t ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG} ."
+                echo 'Starting to build docker image'
+                 sh "docker build -t ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG} ."
             }
         }
-
-        stage('Docker Login and Push') {
+        stage('Build Helm Chart') {
+            steps {
+                sh 'helm lint movie-lib-app-chart'
+                sh 'helm package movie-lib-app-chart --version '+ DOCKER_IMAGE_TAG
+            }
+        }
+        stage('Push Docker image') {
             steps {
                 script {
-                    sh "docker login -u ${DOCKERHUB_USERNAME} -p ${DOCKERHUB_PASS}"
-                    sh "docker push ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG}"
+                    docker.withRegistry('https://registry.hub.docker.com', 'victor_dockerhin_user') {
+                        dockerImage.push()
+                    }
+                }
+            }
+        }
+        stage('Push HELM chart') {
+            steps {
+                script {
+                    withCredentials([usernamePassword(credentialsId: 'victor_dockerhin_user', passwordVariable:'DOCKERHUB_PASSWORD',usernameVariable: 'DOCKERHUB_USER')]) {
+                        sh "docker login -u ${DOCKERHUB_USER} -p ${DOCKERHUB_PASSWORD}"
+                        sh 'helm push movie-lib-app-chart-'+ DOCKER_IMAGE_TAG+'.tgz oci://registry-1.docker.io/films-lib'
+                    }
                 }
             }
         }
