@@ -1,9 +1,14 @@
 # Default values for film-library-app.
-replicaCount: 2
+namespace: test  # Replace 'default' with the desired namespace
+
+replicaCount: 2  # Replace '3' with the desired number of replicas
+
 image:
   repository: itsvictorfy/film-library-app
   tag: V0.01
   pullPolicy: IfNotPresent
+spec:
+  replicaCount: 2
 
 service:
   type: LoadBalancer
