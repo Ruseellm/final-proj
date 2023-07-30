@@ -1,0 +1,99 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  namespace: database
+  name: postgresdb-persistent-volume
+  labels:
+    type: local
+    app: postgresdb
+spec:
+  storageClassName: default
+  capacity:
+    storage: 4Gi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: "/data/db"
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  namespace: database
+  name: db-persistent-volume-claim
+spec:
+  storageClassName: default
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 4Gi
+---
+
+apiVersion: v1
+kind: Secret
+metadata:
+  namespace: database
+  name: db-secret-credentials
+  labels:
+    app: postgresdb
+data:
+  POSTGRES_DB: bW92aWVzREI=   # Base64-encoded value: "moviesDB"
+  POSTGRES_USER: YWRtaW4=    # Base64-encoded value: "admin"
+  POSTGRES_PASSWORD: c3FsQWRtaW4=   # Base64-encoded value: "sqlAdmin"
+---
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  namespace: database
+  name: postgresdb
+spec:
+  serviceName: postgresdb
+  selector:
+    matchLabels:
+      app: postgresdb
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: postgresdb
+    spec:
+      containers:
+        - name: postgresdb
+          image: h3xbar/final-proj:psgrsql
+          ports:
+            - containerPort: 5432
+          envFrom:
+            - secretRef:
+                name: db-secret-credentials
+          volumeMounts:
+            - mountPath: /data/db
+              name: db-data
+  volumeClaimTemplates:
+    - metadata:
+        name: db-data
+      spec:
+        storageClassName: default
+        accessModes:
+          - ReadWriteMany
+        resources:
+          requests:
+            storage: 4Gi
+---
+
+apiVersion: v1
+# Kind for service
+kind: Service
+metadata:
+  namespace: database
+  name: postgresdb
+  labels:
+    app: postgresdb
+spec:
+  selector:
+    app: postgresql-db
+  type: LoadBalancer
+  ports:
+    - port: 5432
+      targetPort: 5432

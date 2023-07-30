@@ -1,27 +1,33 @@
 pipeline {
     agent {
-      kubernetes {
-          inheritFrom 'maven'
-      }
+        kubernetes {
+        label 'promo-app'
+        yamlFile 'build-pod.yaml'
+        defaultContainer 'ez-docker-helm-build'
+        }
     }
-  environment {
-    DOCKER_USER = 'itsvictorfy'
-    DOCKER_PASS = ''
-  }
-  stages {
-        stage('Build') {
+
+    environment {
+        DOCKER_IMAGE_NAME = "itsvictorfy/final-proj"
+        DOCKER_IMAGE_TAG = "${env.GIT_COMMIT.take(7)}"
+        DOCKERHUB_USERNAME = credentials('victor_dockerhub_username')
+        DOCKERHUB_PASS = credentials('victor_dockerhub_pass')
+    }
+
+
+    stages {
+        stage('Build Docker Image') {
             steps {
-                sh 'docker login -u $DOCKER_USER -p $DOCKER_PASS'
+                sh "docker build -t ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG} ."
             }
         }
-        stage('Test'){
+
+        stage('Docker Login and Push') {
             steps {
-                sh 'docker build ./application/ --tag itsvictorfy/final_proj:latest'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                sh 'docker push itsvictorfy/dropit'
+                script {
+                    sh "docker login -u ${DOCKERHUB_USERNAME} -p ${DOCKERHUB_PASS}"
+                    sh "docker push ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG}"
+                }
             }
         }
     }

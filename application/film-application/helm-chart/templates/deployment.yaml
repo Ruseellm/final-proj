@@ -1,17 +1,17 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: "film-library"
+  name: "film-application"
   namespace: {{.Values.namespace}}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: "film-library"
+      app: "film-application"
   template:
     metadata:
       labels:
-        app: "film-library"
+        app: "film-application"
     spec:
       containers:
         - name: {{ .Chart.Name }}

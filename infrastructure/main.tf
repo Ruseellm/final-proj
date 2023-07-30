@@ -141,7 +141,8 @@ resource "helm_release" "jenkins" {
       "workflow-aggregator:596.v8c21c963d92d",
       "git:5.1.0",
       "configuration-as-code:1647.ve39ca_b_829b_42",
-      "blueocean:1.27.4"
+      "blueocean:1.27.4",
+      "docker-plugin:1.4"
     ])
   }
   set {
