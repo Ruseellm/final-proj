@@ -8,10 +8,10 @@ pipeline {
     }
 
     environment {
-        DOCKER_IMAGE_NAME = "itsvictorfy/final-proj"
+        DOCKER_IMAGE_NAME = "h3xbar/final-proj"
         DOCKER_IMAGE_TAG = "${env.GIT_COMMIT.take(7)}"
-        DOCKERHUB_USERNAME = credentials('victor_dockerhub_username')
-        DOCKERHUB_PASS = credentials('victor_dockerhub_pass')
+        DOCKERHUB_USERNAME = credentials('bar_dockerhub_username')
+        DOCKERHUB_PASS = credentials('bar_dockerhub_pass')
     }
 
 
