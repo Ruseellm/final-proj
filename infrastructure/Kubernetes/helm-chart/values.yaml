@@ -1,7 +1,6 @@
-namespaceNames:
-  - cicd
-  - observation
-  - env-dev
-  - env-stage
-  - env-prod
-  - database
+cicdNamespaceName: "cicd"
+observationNamespaceName: "observation"
+devNamespaceName: "dev"
+stageNamespaceName: "stage"
+prodNamespaceName: "prod"
+databaseNamespaceName: "database"

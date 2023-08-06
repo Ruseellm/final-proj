@@ -13,3 +13,21 @@
 /infrastructure/Jenkins/Dockerfile
 /infrastructure/terraform.tfstate
 /application/film-application/.git/*
+.git/
+.gitignore
+.bzr/
+.bzrignore
+.hg/
+.hgignore
+.svn/
+# Common backup files
+*.swp
+*.bak
+*.tmp
+*.orig
+*~
+# Various IDEs
+.project
+.idea/
+*.tmproj
+.vscode/
