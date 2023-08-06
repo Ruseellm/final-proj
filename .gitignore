@@ -13,3 +13,4 @@
 /infrastructure/Jenkins/Dockerfile
 /infrastructure/terraform.tfstate
 /application/film-application/.git/*
+terraform.tfvars

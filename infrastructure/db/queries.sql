@@ -22,3 +22,7 @@ SELECT * FROM actors
 
 ''' Search Actor By Name '''
 SELECT * FROM actors WHERE A_Name LIKE '${String}%'
+
+''' *ADMIN COMMAND* Pull Users '''
+SELECT * FROM Users
+
