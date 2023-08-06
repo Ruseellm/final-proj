@@ -13,6 +13,7 @@
 /infrastructure/Jenkins/Dockerfile
 /infrastructure/terraform.tfstate
 /application/film-application/.git/*
+<<<<<<< HEAD
 .git/
 .gitignore
 .bzr/
@@ -31,3 +32,6 @@
 .idea/
 *.tmproj
 .vscode/
+=======
+terraform.tfvars
+>>>>>>> 6e298af37521849eb0f04d41968a71a66f3c739f
