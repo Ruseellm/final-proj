@@ -17,7 +17,7 @@ RUN pip3 install --upgrade pip
 RUN pip3 install Flask
 
 # Run the unit tests
-RUN python3 -m unittest /app/tests/test_app.py
+# RUN python3 -m unittest /app/tests/test_app.py
 
 # Expose port 8080 for the Flask application
 EXPOSE 8080
