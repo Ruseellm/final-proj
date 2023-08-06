@@ -38,6 +38,7 @@ def test_get_users_lists(app, client):
         db.session.add(user5)
         db.session.add(user6)
         db.session.commit()
+        assert len(all_users) == 6
         joyful_users = get_joyful_users()
         assert len(joyful_users) == 3
         unjoyful_users = get_unjoyful_users()
