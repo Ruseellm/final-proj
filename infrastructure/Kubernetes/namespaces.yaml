@@ -11,17 +11,17 @@ metadata:
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: env-dev
+  name: dev
 ---
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: env-stage
+  name: stage
 ---
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: env-prod
+  name: prod
 ---
 apiVersion: v1
 kind: Namespace

@@ -1,0 +1,7 @@
+# File: my-namespace-chart/templates/namespaces.yaml
+{{- range $namespace := .Values.namespaceNames }}
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{ $namespace }}
+{{- end }}

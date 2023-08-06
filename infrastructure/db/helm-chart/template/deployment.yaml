@@ -1,59 +1,66 @@
+# File: postgresdb-helm-chart/templates/persistent-volume.yaml
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  namespace: database
+  namespace: {{ .Values.namespace }}
   name: postgresdb-persistent-volume
   labels:
     type: local
     app: postgresdb
 spec:
-  storageClassName: default
+  storageClassName: {{ .Values.storageClass }}
   capacity:
     storage: 4Gi
   accessModes:
     - ReadWriteMany
   hostPath:
     path: "/data/db"
+
 ---
 
+# File: postgresdb-helm-chart/templates/persistent-volume-claim.yaml
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  namespace: database
+  namespace: {{ .Values.namespace }}
   name: db-persistent-volume-claim
 spec:
-  storageClassName: default
+  storageClassName: {{ .Values.storageClass }}
   accessModes:
     - ReadWriteMany
   resources:
     requests:
       storage: 4Gi
+
 ---
 
+# File: postgresdb-helm-chart/templates/secret.yaml
 apiVersion: v1
 kind: Secret
 metadata:
-  namespace: database
+  namespace: {{ .Values.namespace }}
   name: db-secret-credentials
   labels:
     app: postgresdb
 data:
-  POSTGRES_DB: bW92aWVzREI=   # Base64-encoded value: "moviesDB"
-  POSTGRES_USER: YWRtaW4=    # Base64-encoded value: "admin"
-  POSTGRES_PASSWORD: c3FsQWRtaW4=   # Base64-encoded value: "sqlAdmin"
+  POSTGRES_DB: {{ .Values.dbName | b64enc | quote }}
+  POSTGRES_USER: {{ .Values.dbUser | b64enc | quote }}
+  POSTGRES_PASSWORD: {{ .Values.dbPassword | b64enc | quote }}
+
 ---
 
+# File: postgresdb-helm-chart/templates/statefulset.yaml
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  namespace: database
+  namespace: {{ .Values.namespace }}
   name: postgresdb
 spec:
   serviceName: postgresdb
   selector:
     matchLabels:
       app: postgresdb
-  replicas: 2
+  replicas: {{ .Values.replicaCount }}
   template:
     metadata:
       labels:
@@ -61,7 +68,7 @@ spec:
     spec:
       containers:
         - name: postgresdb
-          image: h3xbar/final-proj:psgrsql
+          image: {{ .Values.image }}
           ports:
             - containerPort: 5432
           envFrom:
@@ -74,25 +81,26 @@ spec:
     - metadata:
         name: db-data
       spec:
-        storageClassName: default
+        storageClassName: {{ .Values.storageClass }}
         accessModes:
           - ReadWriteMany
         resources:
           requests:
             storage: 4Gi
+
 ---
 
+# File: postgresdb-helm-chart/templates/service.yaml
 apiVersion: v1
-# Kind for service
 kind: Service
 metadata:
-  namespace: database
+  namespace: {{ .Values.namespace }}
   name: postgresdb
   labels:
     app: postgresdb
 spec:
   selector:
-    app: postgresql-db
+    app: postgresdb
   type: LoadBalancer
   ports:
     - port: 5432

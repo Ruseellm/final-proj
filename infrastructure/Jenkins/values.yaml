@@ -5,9 +5,7 @@
     - configuration-as-code:1647.ve39ca_b_829b_42
     - gitlab-plugin:1.7.14
     - blueocean:1.27.4
+    - workflow-multibranch:756.v891d88f2cd46
   controller:
     serviceType: LoadBalancer
     targetPort: 8080
-  agent:
-    image: jenkins/jnlp-agent-docker
-    tag: "jenkinsSlave"

@@ -10,8 +10,6 @@ pipeline {
     environment {
         DOCKER_IMAGE_NAME = "itsvictorfy/final-proj"
         DOCKER_IMAGE_TAG = "${env.GIT_COMMIT.take(5)}"
-        DOCKERHUB_USERNAME = credentials('victor_dockerhub_username')
-        DOCKERHUB_PASS = credentials('victor_dockerhub_pass')
     }
 
 
@@ -24,14 +22,14 @@ pipeline {
         }
         stage('Build Helm Chart') {
             steps {
-                sh 'helm lint movie-lib-app-chart'
-                sh 'helm package movie-lib-app-chart --version '+ DOCKER_IMAGE_TAG
+                sh 'helm lint film-library-app'
+                sh 'helm package film-library-app --version '+ DOCKER_IMAGE_TAG
             }
         }
         stage('Push Docker image') {
             steps {
                 script {
-                    docker.withRegistry('https://registry.hub.docker.com', 'victor_dockerhin_user') {
+                    docker.withRegistry('https://registry.hub.docker.com', 'victor_dockerhub_user') {
                         dockerImage.push()
                     }
                 }
@@ -40,9 +38,9 @@ pipeline {
         stage('Push HELM chart') {
             steps {
                 script {
-                    withCredentials([usernamePassword(credentialsId: 'victor_dockerhin_user', passwordVariable:'DOCKERHUB_PASSWORD',usernameVariable: 'DOCKERHUB_USER')]) {
+                    withCredentials([usernamePassword(credentialsId: 'victor_dockerhub_user', passwordVariable:'DOCKERHUB_PASSWORD',usernameVariable: 'DOCKERHUB_USER')]) {
                         sh "docker login -u ${DOCKERHUB_USER} -p ${DOCKERHUB_PASSWORD}"
-                        sh 'helm push movie-lib-app-chart-'+ DOCKER_IMAGE_TAG+'.tgz oci://registry-1.docker.io/films-lib'
+                        sh "helm push film-library-app- ${DOCKER_IMAGE_TAG} .tgz oci://registry-1.docker.io/itsvictorfy"
                     }
                 }
             }

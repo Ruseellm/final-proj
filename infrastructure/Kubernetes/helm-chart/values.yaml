@@ -1,0 +1,7 @@
+namespaceNames:
+  - cicd
+  - observation
+  - env-dev
+  - env-stage
+  - env-prod
+  - database
