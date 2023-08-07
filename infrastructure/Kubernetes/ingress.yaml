@@ -1,8 +1,8 @@
-# Jenkins
+# Jenkins & ArgoCD
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: ci
+  name: cicd-ingress
   namespace: cicd
   annotations:
     # cert-manager.io/cluster-issuer: "base-issuer" # SSL certificates issuer - you don't need it if you don't use SSL
@@ -15,44 +15,29 @@ spec:
     - host: ingress-nginx-controller # Update this to your actual host
       http:
         paths:
-        - pathType: ImplementationSpecific
-          path: /jenkins(/|$)(.*)
-          # https://XXX.XXX.XXX.XXX/jenkins - (/|$) - means that it can be /jenkins or /jenkins/,
-          # (.*) - means that it can be /jenkins/ or /jenkins/anything,
+        - pathType: Prefix
+          path: /ci(/|$)(.*)
+          # https://XXX.XXX.XXX.XXX/ci - (/|$) - means that it can be /ci or /ci/,
+          # (.*) - means that it can be /ci/ or /ci/anything,
           # $2 in the rewrite-target annotation will be translated to /anything in the request to backend service01/anything
           backend:
             service:
               name: jenkins
               port:
                 number: 8080
----
-# ArgoCD
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: cd
-  namespace: cicd
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
-spec:
-  ingressClassName: nginx
-  rules:
-    - host: ingress-nginx-controller # Update this to your actual host
-      http:
-        paths:
-        - pathType: ImplementationSpecific
-          path: /argocd(/|$)(.*)
+        - pathType: Prefix
+          path: /cd(/|$)(.*)
           backend:
             service:
               name: argocd
               port:
                 number: 443
 ---
-# Prometheus
+# Prometheus & Grafana
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: monitor
+  name: observation-ingress
   namespace: observation
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$2
@@ -62,30 +47,15 @@ spec:
     - host: ingress-nginx-controller # Update this to your actual host
       http:
         paths:
-        - pathType: ImplementationSpecific
-          path: /prometheus(/|$)(.*)
+        - pathType: Prefix
+          path: /monitor(/|$)(.*)
           backend:
             service:
               name: prometheus
               port:
                 number: 9090
----
-# Grafana
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: observe
-  namespace: observation
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
-spec:
-  ingressClassName: nginx
-  rules:
-    - host: ingress-nginx-controller # Update this to your actual host
-      http:
-        paths:
-        - pathType: ImplementationSpecific
-          path: /grafana(/|$)(.*)
+        - pathType: Prefix
+          path: /observe(/|$)(.*)
           backend:
             service:
               name: grafana
