@@ -4,9 +4,9 @@ FROM python:3.8.3
 WORKDIR /app
 
 # Copy the necessary files to the container
-COPY templates/*.html /app/templates
+COPY templates/*.html /app/templates/
 COPY *.py /app/
-COPY tests/* /app/tests
+COPY tests/* /app/tests/
 
 # Install the required dependencies
 RUN apt-get update \
