@@ -91,3 +91,7 @@ spec:
               name: grafana
               port:
                 number: 3000
+
+
+
+###### No database URI since its non http service and therefore not supported by ingress
