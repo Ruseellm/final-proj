@@ -33,8 +33,14 @@ pipeline {
                     sh "docker login -u ${DOCKERHUB_USERNAME} -p ${DOCKERHUB_PASS}"
                     sh "docker push ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG}"
                     sh "helm push helm-chart/finalproj-app-${CHART_VERSION}.tgz oci://registry-1.docker.io/itsvictorfy"
+                    
                 }
             }
         }
     }
+    // post {
+    //     always {
+    //         emailext body: 'build $BUILD_TAG Succsesfuly', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Test'
+    //     }
+    // }
 }

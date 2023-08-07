@@ -4,7 +4,7 @@ FROM python:3.8.3
 WORKDIR /app
 
 # Copy the necessary files to the container
-COPY templates/* /app/templates
+COPY templates/*.html /app/templates
 COPY *.py /app/
 COPY tests/* /app/tests
 

@@ -86,7 +86,7 @@ def actors():
 
 @app.route('/' , methods=["GET"])
 def home():
-    return render_template("homePage.html")
+    return render_template("Film_Library.html")
 
 @app.route('/ping', methods=["GET"])
 #test

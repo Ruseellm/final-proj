@@ -1,0 +1,50 @@
+pipeline {
+    agent {
+        kubernetes {
+        label 'agent-app'
+        yamlFile 'build-pod.yaml'
+        defaultContainer 'ez-docker-helm-build'
+        }
+    }
+
+    environment {
+        DOCKER_IMAGE_NAME = "itsvictorfy/final-proj"
+        DOCKER_IMAGE_TAG = "${env.GIT_COMMIT.take(5)}"
+    }
+
+
+    stages {
+        stage('Build image') {
+            steps {
+                echo 'Starting to build docker image'
+                 sh "docker build -t ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG} ."
+            }
+        }
+        stage('Push Docker image') {
+            steps {
+                script {
+                    def dockerImage = docker.build("${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG}")
+                    docker.withRegistry('https://registry.hub.docker.com', 'victor_dockrhub_user') {
+                        dockerImage.push()
+                    }
+                }
+            }
+        }
+        stage('Build Helm Chart') {
+            steps {
+                sh "helm package helm-chart/ -d helm-chart/ --version ${DOCKER_IMAGE_TAG}"
+                sh 'helm package finalproj-app --version '+ DOCKER_IMAGE_TAG
+            }
+        }
+        stage('Push HELM chart') {
+            steps {
+                script {
+                    withCredentials([usernamePassword(credentialsId: 'victor_dockerhub_user', passwordVariable:'DOCKERHUB_PASSWORD',usernameVariable: 'DOCKERHUB_USER')]) {
+                        sh "docker login -u ${DOCKERHUB_USER} -p ${DOCKERHUB_PASSWORD}"
+                        sh "helm push finalproj-app - ${DOCKER_IMAGE_TAG} .tgz oci://registry-1.docker.io/itsvictorfy"
+                    }
+                }
+            }
+        }
+    }
+}
