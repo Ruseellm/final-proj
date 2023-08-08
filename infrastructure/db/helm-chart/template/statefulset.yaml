@@ -4,11 +4,11 @@ metadata:
   namespace: {{ .Values.namespace }}
   name: postgresdb
 spec:
+  replicas: {{ .Values.replicaCount }}
   serviceName: postgresdb
   selector:
     matchLabels:
       app: postgresdb
-  replicas: {{ .Values.replicaCount }}
   template:
     metadata:
       labels:
@@ -17,6 +17,7 @@ spec:
       containers:
         - name: postgresdb
           image: {{ .Values.image }}
+          imagePullPolicy: Always
           ports:
             - containerPort: 5432
           envFrom:
@@ -29,9 +30,9 @@ spec:
     - metadata:
         name: db-data
       spec:
-        storageClassName: {{ .Values.storageClass }}
+        storageClassName: standard-rwo
         accessModes:
-          - ReadWriteMany
+          - ReadWriteOnce
         resources:
           requests:
             storage: 4Gi

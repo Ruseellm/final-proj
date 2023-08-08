@@ -1,5 +1,5 @@
+# values.yaml
 namespace: database
-storageClass: default
 dbName: "bW92aWVzREI="  # Base64-encoded value: "moviesDB"
 dbUser: "YWRtaW4="    # Base64-encoded value: "admin"
 dbPassword: "c3FsQWRtaW4="  # Base64-encoded value: "sqlAdmin"
