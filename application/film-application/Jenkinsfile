@@ -11,7 +11,7 @@ pipeline {
         DOCKER_IMAGE_NAME = "itsvictorfy/final-proj"
         DOCKER_IMAGE_TAG = "${env.GIT_COMMIT.take(7)}"
         DOCKERHUB_USERNAME = credentials('victor_dockerhub_username')
-        DOCKERHUB_PASS = credentials('victor_dockerhub_pass')
+        DOCKERHUB_PASS = credentials('victor_dockerhub_pass') // Export Secrets into a file and add it to .gitignore
         CHART_VERSION = "1.0-${DOCKER_IMAGE_TAG}"
     }
 
