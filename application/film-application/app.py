@@ -6,10 +6,10 @@ app = Flask(__name__)
 
 # Replace the following with your PostgreSQL database connection details
 db_connection_config = {
-    'host': 'your_host',
-    'database': 'film_library',
-    'user': 'your_username',
-    'password': 'your_password'
+    'host': 'your_host',              ########
+    'database': 'film_library',       ########
+    'user': 'your_username',          ########
+    'password': 'your_password'       ########
 }
 
 
