@@ -1,49 +1,46 @@
 pipeline {
     agent {
         kubernetes {
-        label 'agent-app'
-        yamlFile 'build-pod.yaml'
-        defaultContainer 'ez-docker-helm-build'
+            label 'slave'
+            yamlFile 'build-pod.yaml'
+            defaultContainer 'ez-docker-helm-build'
         }
     }
 
     environment {
         DOCKER_IMAGE_NAME = "itsvictorfy/final-proj"
-        DOCKER_IMAGE_TAG = "${env.GIT_COMMIT.take(5)}"
+        DOCKER_IMAGE_TAG = "${env.GIT_COMMIT.take(7)}"
+        DOCKERHUB_USERNAME = credentials('victor_dockerhub_username')
+        DOCKERHUB_PASS = credentials('victor_dockerhub_pass')
+        CHART_VERSION = "1.0-${DOCKER_IMAGE_TAG}"
     }
 
-
     stages {
-        stage('Build image') {
+        stage('Build Docker Image') {
             steps {
-                echo 'Starting to build docker image'
-                 sh "docker build -t ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG} ."
+                sh "docker build -t ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG} ."
             }
         }
         stage('Build Helm Chart') {
             steps {
-                sh 'helm lint film-library-app'
-                sh 'helm package film-library-app --version '+ DOCKER_IMAGE_TAG
+                sh "helm package helm-chart/ -d helm-chart/ --version ${CHART_VERSION}"
             }
         }
-        stage('Push Docker image') {
+
+        stage('Docker Login and Push') {
             steps {
                 script {
-                    docker.withRegistry('https://registry.hub.docker.com', 'victor_dockerhub_user') {
-                        dockerImage.push()
-                    }
-                }
-            }
-        }
-        stage('Push HELM chart') {
-            steps {
-                script {
-                    withCredentials([usernamePassword(credentialsId: 'victor_dockerhub_user', passwordVariable:'DOCKERHUB_PASSWORD',usernameVariable: 'DOCKERHUB_USER')]) {
-                        sh "docker login -u ${DOCKERHUB_USER} -p ${DOCKERHUB_PASSWORD}"
-                        sh "helm push film-library-app- ${DOCKER_IMAGE_TAG} .tgz oci://registry-1.docker.io/itsvictorfy"
-                    }
+                    sh "docker login -u ${DOCKERHUB_USERNAME} -p ${DOCKERHUB_PASS}"
+                    sh "docker push ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG}"
+                    sh "helm push helm-chart/finalproj-app-${CHART_VERSION}.tgz oci://registry-1.docker.io/itsvictorfy"
+                    
                 }
             }
         }
     }
+    // post {
+    //     always {
+    //         emailext body: 'build $BUILD_TAG Succsesfuly', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Test'
+    //     }
+    // }
 }

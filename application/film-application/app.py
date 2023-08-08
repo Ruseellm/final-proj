@@ -13,7 +13,7 @@ db_connection_config = {
 }
 
 
-class Movie:
+class Film:
     def __init__(self, title, director, year, genre):
         self.title = title
         self.director = director
@@ -28,7 +28,7 @@ class Actor:
 
 
 
-@app.route('/movies')
+@app.route('/films')
 def index():
     try:
         # Establish a connection to the PostgreSQL database
@@ -37,22 +37,22 @@ def index():
         # Create a cursor to interact with the database
         cursor = conn.cursor()
 
-        # Query all movies from the 'movies' table
-        cursor.execute("SELECT * FROM movies")
+        # Query all films from the 'films' table
+        cursor.execute("SELECT * FROM films")
         rows = cursor.fetchall()
 
-        # Create a list to store movie objects
-        movies = []
+        # Create a list to store film objects
+        films = []
         for row in rows:
             title, director, year, genre = row
-            movie = Movie(title, director, year, genre)
-            movies.append(movie)
+            film = Film(title, director, year, genre)
+            films.append(film)
 
         # Close the cursor and connection
         cursor.close()
         conn.close()
 
-        return render_template('movies.html', movies=movies)
+        return render_template('films.html', films=films)
     except Exception as e:
         return f"Error: {e}"
 
@@ -84,9 +84,38 @@ def actors():
     except Exception as e:
         return f"Error: {e}"
 
+@app.route('/film_category')
+def film_category(Category):
+    try:
+        # Establish a connection to the PostgreSQL database
+        conn = psycopg2.connect(**db_connection_config)
+
+        # Create a cursor to interact with the database
+        cursor = conn.cursor()
+
+        # Query all films from films table
+        cursor.execute("SELECT * FROM films WHERE F_Category LIKE '%${Category}%'")
+        film_rows = cursor.fetchall()
+
+        # Create a list to store film objects
+        films = []
+        for row in rows:
+            title, director, year, genre = row
+            film = Film(title, director, year, genre)
+            films.append(film)
+            
+         # Close the cursor and connection
+        cursor.close()
+        conn.close()
+
+        return render_template('films.html', films=films)
+    except Exception as e:
+        return f"Error: {e}"
+
+
 @app.route('/' , methods=["GET"])
 def home():
-    return render_template("homePage.html")
+    return render_template("Film_Library.html")
 
 @app.route('/ping', methods=["GET"])
 #test

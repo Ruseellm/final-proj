@@ -1,11 +1,11 @@
 # Default values for film-library-app.
-namespace: test  # Replace 'default' with the desired namespace
+namespace: stage  # Replace 'default' with the desired namespace
 
 replicaCount: 2  # Replace '3' with the desired number of replicas
 
 image:
-  repository: itsvictorfy/film-library-app
-  tag: V0.01
+  repository: itsvictorfy/final-proj
+  tag: aca930b
   pullPolicy: IfNotPresent
 spec:
   replicaCount: 2
@@ -15,7 +15,7 @@ service:
   port: 8080
 
 database:
-  host: your_database_host
-  database: film_library
-  user: your_database_username
-  password: your_database_password
+  host: postgres
+  database: moviesDB
+  user: admin
+  password: sqlAdmin
