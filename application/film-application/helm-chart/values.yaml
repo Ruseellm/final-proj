@@ -15,7 +15,7 @@ service:
   port: 8080
 
 database:
-  host: postgres
+  host: 35.228.73.143
   database: moviesDB
   user: admin
   password: sqlAdmin

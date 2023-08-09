@@ -30,7 +30,7 @@ spec:
     spec:
       containers:
         - name: postgresdb
-          image: h3xbar/final-proj:psgrsql
+          image: h3xbar/final-proj:psgrsql1
           imagePullPolicy: Always
           ports:
             - containerPort: 5432
@@ -61,8 +61,8 @@ metadata:
   labels:
     app: postgresdb
 data:
-  POSTGRES_DB: bW92aWVzREI=   # Base64-encoded value: "moviesDB"
-  POSTGRES_USER: YWRtaW4=    # Base64-encoded value: "admin"
+  POSTGRES_DB: bW92aWVzZGI=   # Base64-encoded value: "moviesdb"
+  POSTGRES_USER: cG9zdGdyZXM=    # Base64-encoded value: "admin"
   POSTGRES_PASSWORD: c3FsQWRtaW4=   # Base64-encoded value: "sqlAdmin"
 
 ---
