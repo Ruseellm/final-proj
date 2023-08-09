@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "film-application"
+  namespace: {{.Values.namespace}}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: "film-application"
+  template:
+    metadata:
+      labels:
+        app: "film-application"
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          ports:
+            - containerPort: 8080
+          env:
+            - name: DB_HOST
+              value: {{ .Values.database.host }}
+            - name: DB_DATABASE
+              value: {{ .Values.database.database }}
+            - name: DB_USER
+              value: {{ .Values.database.user }}
+            - name: DB_PASSWORD
+              value: {{ .Values.database.password }}

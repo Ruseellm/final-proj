@@ -1,0 +1,105 @@
+pipeline {
+    agent {
+        kubernetes {
+            label 'slave'
+            yamlFile 'build-pod.yaml'
+            defaultContainer 'ez-docker-helm-build'
+        }
+    }
+
+    environment {
+        DOCKER_IMAGE_NAME = "itsvictorfy/final-proj"
+        DOCKER_IMAGE_TAG = "${env.GIT_COMMIT.take(7)}"
+        DOCKERHUB_USERNAME = credentials('victor_dockerhub_username')
+        DOCKERHUB_PASS = credentials('victor_dockerhub_pass')
+        GITHUB_AT = credentials('github_access_token')
+        CHART_VERSION = "1.0-${env.BRANCH_NAME}-${DOCKER_IMAGE_TAG}"
+    }
+
+    stages {
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    sh "docker build -t ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG} ."
+                    sh "sed -i 's/tag: .*/tag: ${DOCKER_IMAGE_TAG}/' helm-chart/values.yaml"
+                    sh "sed -i 's/namespace: .*/namespace: ${BRANCH_NAME}/' helm-chart/values.yaml"
+                }
+            }
+        }
+        stage('Build Helm Chart') {
+            steps {
+                sh "sed -i 's/tag: .*/tag: ${DOCKER_IMAGE_TAG}/' helm-chart/values.yaml"
+                sh "helm package helm-chart/ -d helm-chart/ --version ${CHART_VERSION}"
+            }
+        }
+
+        stage('Docker & Helm Login and Push') {
+            steps {
+                script {
+                    sh "docker login -u ${DOCKERHUB_USERNAME} -p ${DOCKERHUB_PASS}"
+                    sh "docker push ${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG}"
+                    sh "helm push helm-chart/finalproj-app-${CHART_VERSION}.tgz oci://registry-1.docker.io/itsvictorfy"
+                }
+            }
+        }
+        stage('Update Helm Values') {
+            steps {
+                script {
+                    def branchName = env.BRANCH_NAME
+                    
+                    if (branchName == 'main') {
+                        echo "Performing actions for the master branch..."
+                        sh "git config --global user.email 'tohmanchik@gmail.com'"
+                        sh "git config --global user.name ${DOCKERHUB_USERNAME}"
+                        sh "git clone https://${DOCKERHUB_USERNAME}:${GITHUB_AT}@github.com/${DOCKERHUB_USERNAME}/finalproj-argo.git"
+                        dir('finalproj-argo') {
+                            sh "git checkout prod"
+                            sh "git branch --set-upstream-to=origin/prod prod"
+                            sh "git pull"
+                            sh "sed -i 's/tag: .*/tag: ${DOCKER_IMAGE_TAG}/' helm-chart/values.yaml"
+                            sh "sed -i 's/namespace: .*/namespace: prod/' helm-chart/values.yaml"
+                            sh "git add ."
+                            sh "git commit -m 'Update Image Tag ${DOCKER_IMAGE_TAG}'"
+                            sh "git push"
+                        }
+                    } else if (branchName.startsWith('stage')) {
+                        echo "Performing actions for feature branch.."
+                        sh "git config --global user.email 'tohmanchik@gmail.com'"
+                        sh "git config --global user.name ${DOCKERHUB_USERNAME}"
+                        sh "git clone https://${DOCKERHUB_USERNAME}:${GITHUB_AT}@github.com/${DOCKERHUB_USERNAME}/finalproj-argo.git"
+                        dir('finalproj-argo') {
+                            sh "git checkout stage"
+                            sh "git branch --set-upstream-to=origin/stage stage"
+                            sh "git pull"
+                            sh "sed -i 's/tag: .*/tag: ${DOCKER_IMAGE_TAG}/' helm-chart/values.yaml"
+                            sh "sed -i 's/namespace: .*/namespace: stage/' helm-chart/values.yaml"
+                            sh "git add ."
+                            sh "git commit -m 'Update Image Tag ${DOCKER_IMAGE_TAG}'"
+                            sh "git push"
+                        }
+                    } else if (branchName == 'dev') {
+                        echo "Performing actions for the develop branch..."
+                        sh "git config --global user.email 'tohmanchik@gmail.com'"
+                        sh "git config --global user.name ${DOCKERHUB_USERNAME}"
+                        sh "git clone https://${DOCKERHUB_USERNAME}:${GITHUB_AT}@github.com/${DOCKERHUB_USERNAME}/finalproj-argo.git"
+                        dir('finalproj-argo') {
+                            sh "git checkout dev"
+                            sh "git branch --set-upstream-to=origin/dev dev"
+                            sh "git pull"
+                            sh "sed -i 's/tag: .*/tag: ${DOCKER_IMAGE_TAG}/' helm-chart/values.yaml"
+                            sh "sed -i 's/namespace: .*/namespace: dev/' helm-chart/values.yaml"
+                            sh "git add ."
+                            sh "git commit -m 'Update Image Tag ${DOCKER_IMAGE_TAG}'"
+                            sh "git push"
+                        }
+                    }
+                }
+            }
+        }
+    }
+    // post {
+    //     always {
+    //         emailext body: 'build $BUILD_TAG Succsesfuly', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Test'
+    //     }
+    // }
+}

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Movie List</title>
+</head>
+<body>
+    <h1>Movie List</h1>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Producer</th>
+            <th>Director</th>
+            <th>Prizes</th>
+            <th>Year</th>
+            <th>Rating</th>
+            <th>Count of Ratings</th>
+            <th>Type</th>
+        </tr>
+        {% for film in films %}
+        <tr>
+            <td>{{ film.f_id }}</td>
+            <td>{{ film.f_name }}</td>
+            <td>{{ film.f_producer }}</td>
+            <td>{{ film.f_director }}</td>
+            <td>{{ film.f_prizes }}</td>
+            <td>{{ film.f_year }}</td>
+            <td>{{ film.f_rating }}</td>
+            <td>{{ film.f_count_rating }}</td>
+            <td>{{ film.f_type }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    
+</body>
+</html>
