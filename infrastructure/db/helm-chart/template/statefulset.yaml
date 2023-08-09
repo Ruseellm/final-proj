@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  namespace: {{ .Values.namespace }}
+  name: postgresdb
+spec:
+  replicas: {{ .Values.replicaCount }}
+  serviceName: postgresdb
+  selector:
+    matchLabels:
+      app: postgresdb
+  template:
+    metadata:
+      labels:
+        app: postgresdb
+    spec:
+      containers:
+        - name: postgresdb
+          image: {{ .Values.image }}
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5432
+          envFrom:
+            - secretRef:
+                name: db-secret-credentials
+          volumeMounts:
+            - mountPath: /data/db
+              name: db-data
+  volumeClaimTemplates:
+    - metadata:
+        name: db-data
+      spec:
+        storageClassName: standard-rwo
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 4Gi

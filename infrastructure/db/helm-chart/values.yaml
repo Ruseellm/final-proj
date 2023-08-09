@@ -1,0 +1,7 @@
+# values.yaml
+namespace: database
+dbName: "bW92aWVzREI="  # Base64-encoded value: "moviesDB"
+dbUser: "YWRtaW4="    # Base64-encoded value: "admin"
+dbPassword: "c3FsQWRtaW4="  # Base64-encoded value: "sqlAdmin"
+replicaCount: 2
+image: "h3xbar/final-proj:psgrsql"

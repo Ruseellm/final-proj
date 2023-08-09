@@ -1,0 +1,30 @@
+# File: my-namespace-chart/templates/namespaces.yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{ .Values.cicdNamespaceName }}
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{ .Values.observationNamespaceName }}
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{ .Values.devNamespaceName }}
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{ .Values.stageNamespaceName }}
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{ .Values.prodNamespaceName }}
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{ .Values.databaseNamespaceName }}

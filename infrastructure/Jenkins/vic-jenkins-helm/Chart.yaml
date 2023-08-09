@@ -1,0 +1,4 @@
+apiVersion: v2
+name: jenkins-vic
+version: 0.1
+description: jenkins with plugins for final project

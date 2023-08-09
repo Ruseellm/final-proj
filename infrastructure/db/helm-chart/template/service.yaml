@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: {{ .Values.namespace }}
+  name: postgresdb
+  labels:
+    app: postgresdb
+spec:
+  selector:
+    app: postgresdb
+  type: LoadBalancer
+  ports:
+    - port: 5432
+      targetPort: 5432
